@@ -151,7 +151,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="InputControl.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Barrier.cpp" />
     <ClCompile Include="Object\Enemy.cpp" />
@@ -164,6 +163,7 @@
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
+    <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Barrier.h" />
