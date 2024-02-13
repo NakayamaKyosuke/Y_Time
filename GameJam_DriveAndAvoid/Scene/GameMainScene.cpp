@@ -5,7 +5,7 @@
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
-barrier_image(NULL), mileage(0) ,player(nullptr), enemy(nullptr)
+barrier_image(NULL), obstruct_image(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr)
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -28,6 +28,7 @@ void GameMainScene::Initialize()
 	//画像の読み込み	
 	back_ground = LoadGraph("Resource/images/back.bmp");
 	barrier_image= LoadGraph("Resource/images/barrier.png");
+	obstruct_image = LoadGraph("Resource/images/End.bmp");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
 	//エラーチェック
@@ -35,15 +36,22 @@ void GameMainScene::Initialize()
 	{
 		throw("Resource/images/back.bmpがありません\n");
 	}
-
+	if (barrier_image == 1)
+	{
+		throw("Resource/images/barrier.bmpがありません\n");
+	}
 	if (result == -1)
 	{
 		throw("Resource/images/car.bmpがありません\n");
 	}
-
+	if (obstruct_image == -1)
+	{
+		throw ("Resource/images/End.bmpがありません\n");
+	}
 	//オブジェクトの生成
 	player = new Player;
 	enemy = new Enemy * [10];
+	item = new Item * [10];
 
 	//オブジェクトの初期化
 	player->Initialize();
@@ -51,6 +59,11 @@ void GameMainScene::Initialize()
 	for (int i = 0; i < 10; i++)
 	{
 		enemy[i] = nullptr;
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		item[i] = nullptr;
 	}
 }
 
@@ -73,6 +86,16 @@ eSceneType GameMainScene::Update()
 				int type = GetRand(3) % 3;
 				enemy[i] = new Enemy(type, enemy_image[type]);
 				enemy[i]->Initialize();
+				break;
+			}
+		}
+		//仮に敵と同時生成
+		for (int i = 0; i < 10; i++)
+		{
+			if (item[i] == nullptr)
+			{
+				item[i] = new Item();
+				item[i]->Initialize();
 				break;
 			}
 		}
@@ -106,6 +129,33 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
+	//アイテムの更新と当たり判定チェック
+	for (int i = 0; i < 10; i++)
+	{
+		if (item[i] != nullptr)
+		{
+			item[i]->Update(player->GetSpeed());
+
+			//画面外に行ったら、敵を削除してスコア加算
+			if (item[i]->GetLocation().y >= 640.0f)
+			{
+				item[i]->Finalize();
+				delete item[i];
+				item[i] = nullptr;
+				break;
+			}
+
+			//当たり判定の確認
+			if (IsHitCheak(player, item[i]))
+			{
+				player->SetItemPower(item[i]);
+				item[i]->Finalize();
+				delete item[i];
+				item[i] = nullptr;
+			}
+		}
+	}
 	//プレイヤーの燃料か体力が0未満なら、リザルトに還移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
@@ -129,6 +179,16 @@ void GameMainScene::Draw() const
 		{
 			enemy[i]->Draw();
 		}
+	}
+
+	//アイテムの描画
+	for (int i = 0; i < 10; i++)
+	{
+		if (item[i] != nullptr)
+		{
+			item[i]->Draw();
+		}
+
 	}
 
 	//プレイヤーの描画
@@ -162,6 +222,18 @@ void GameMainScene::Draw() const
 	DrawFormatString(fx, fy, GetColor(0, 0, 0), "FUEL METER");
 	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
 	DrawBoxAA(fx, fy = 20.0f, fx + 100.f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
+
+	//画面阻害アイテムの有効時間に応じて阻害画像を描画
+	if (player->GetObstructTime() < 255)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, player->GetObstructTime());
+	}
+	else
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+	}
+	DrawGraphF(0, 0, obstruct_image, TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 }
 
 //終了時処理
@@ -243,6 +315,19 @@ bool GameMainScene::IsHitCheak(Player* p, Enemy* e)
 
 	//当たり判定サイズの大きさを取得
 	Vector2D box_ex = p->GetBoxSize() + e->GetBoxSize();
+
+	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
+	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
+}
+
+//当たり判定処理（プレイヤーとアイテム）
+bool GameMainScene::IsHitCheak(Player* p, Item* i)
+{
+	//位置情報の差分を取得
+	Vector2D diff_location = p->GetLocation() - i->GetLocation();
+
+	//当たり判定サイズの大きさを取得
+	Vector2D box_ex = p->GetBoxSize() + i->GetBoxSize();
 
 	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
 	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
