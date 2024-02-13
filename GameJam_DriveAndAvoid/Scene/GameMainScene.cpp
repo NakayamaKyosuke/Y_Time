@@ -1,4 +1,5 @@
 #include"GameMainScene.h"
+#include"../Object/RankingData.h"
 #include"DxLib.h"
 #include<math.h>
 
@@ -149,7 +150,7 @@ void GameMainScene::Draw() const
 	DrawFormatString(555, 260, GetColor(255,255,255), "%08.1f",player->GetSpeed());
 
 	//バリア枚数の描画
-	for (int i = 0; i < player->GetBarriarCount(); i++)
+	for (int i = 0; i < player->GetBarrierCount(); i++)
 	{
 		DrawRotaGraph(520 + i * 25, 340, 0.2f, 0, barrier_image, TRUE,FALSE);
 	}
@@ -228,10 +229,10 @@ void GameMainScene::ReadHighScore()
 }
 
 //当たり判定処理（プレイヤーと敵）
-bool GameMainScene::IsHitCheak(player* p, Enemy* e)
+bool GameMainScene::IsHitCheak(Player* p, Enemy* e)
 {
 	//プレイヤーがバリアを張っていたら、当たり判定を無視する
-	if (p->ISBarrier())
+	if (p->IsBarrier())
 	{
 		return false;
 	}
