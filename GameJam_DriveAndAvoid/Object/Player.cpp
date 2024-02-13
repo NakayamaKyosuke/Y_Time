@@ -34,7 +34,7 @@ void Player::Initialize()
 	}
 }
 
-void Player::Update(float speed)
+void Player::Update()
 {
 	//‘€ì•s‰Âó‘Ô‚Å‚ ‚ê‚ÎA©M‚ğ‰ñ“]‚³‚¹‚é
 	if (!is_active)

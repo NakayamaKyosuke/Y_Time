@@ -92,6 +92,7 @@ eSceneType GameMainScene::Update()
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
+				break;
 			}
 
 			//“–‚½‚è”»’è‚ÌŠm”F

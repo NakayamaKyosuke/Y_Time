@@ -26,7 +26,7 @@ void RankingInputScene::Initialize()
 	}
 
 	//メモリの動的確保
-	ranking = new rankingData;
+	ranking = new RankingData;
 	ranking->Initialize();
 
 	//リザルトデータを取得する

@@ -23,6 +23,10 @@ public:
 	static float GetLeftTrigger();			//左トリガー
 	static float GetRightTrigger();			//右トリガー
 
+	//スティック入力取得処理
+	static Vector2D GetLeftStick();			//左スティック
+	static Vector2D GetRightStick();		//右スティック
+
 private:
 	//ボタン配列範囲チェック
 	static bool ChackButtonRange(int button);
