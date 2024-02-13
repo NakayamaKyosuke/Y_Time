@@ -105,6 +105,20 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+	//オイル生成処理
+	if (mileage / 10 % 200 == 0)
+	{
+		//オイル生成
+		for (int i = 0; i < 10; i++)
+		{
+			if (oil == nullptr)
+			{
+				oil = new Oil();
+				oil->Initialize();
+				break;
+			}
+		}
+	}
 	//敵の更新と当たり判定チェック
 	for (int i = 0; i < 10; i++)
 	{
@@ -125,11 +139,11 @@ eSceneType GameMainScene::Update()
 			//当たり判定の確認
 			if (IsHitCheak(player, enemy[i]))
 			{
-					player->SetActive(false);
-					player->DecreaseHp(-50.0f);
-					enemy[i]->Finalize();
-					delete enemy[i];
-					enemy[i] = nullptr;
+				player->SetActive(false);
+				player->DecreaseHp(-50.0f);
+				enemy[i]->Finalize();
+				delete enemy[i];
+				enemy[i] = nullptr;
 			}
 		}
 	}
@@ -160,8 +174,8 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
-		}
-	}
+
+	
 
 	//オイルの更新と当たり判定チェック
 	for (int i = 0; i < 10; i++)
@@ -195,8 +209,8 @@ eSceneType GameMainScene::Update()
 	}
 
 	return GetNowScene();
-}
 
+	}
 //描画処理
 void GameMainScene::Draw() const
 {
@@ -380,7 +394,7 @@ bool GameMainScene::IsHitCheak(Player* p, Item* i)
 	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
 	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
-}
+
 
 //当たり判定処理（プレイヤーとオイル）
 bool GameMainScene::IsHitCheak(Player* p, Oil* o)
