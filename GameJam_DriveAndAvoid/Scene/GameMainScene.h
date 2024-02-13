@@ -5,6 +5,7 @@
 #include "../Object/Enemy.h"
 #include "../Object/Item.h"
 
+#include "../Object/Oil.h"
 //動作確認用
 class GameMainScene : public SceneBase
 {
@@ -20,6 +21,7 @@ private:
 	Enemy** enemy; //敵
 	Item** item;   //アイテム（ロケットエンジン、画面阻害）
 
+	Oil* oil;//オイル
 public:
 	GameMainScene();
 	virtual~GameMainScene();
@@ -36,5 +38,7 @@ private:
 	void ReadHighScore();
 	//当たり判定
 	bool IsHitCheak(Player* p, Enemy* e);
+	//
+	bool IsHitCheak(Player* p, Oil* o);
 	bool IsHitCheak(Player* p, Item* i);
 };

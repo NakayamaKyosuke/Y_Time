@@ -31,7 +31,7 @@ void GameMainScene::Initialize()
 	obstruct_image = LoadGraph("Resource/images/flash.jpg");
 
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
-
+	
 	//エラーチェック
 	if (back_ground == 1)
 	{
@@ -125,11 +125,11 @@ eSceneType GameMainScene::Update()
 			//当たり判定の確認
 			if (IsHitCheak(player, enemy[i]))
 			{
-				player->SetActive(false);
-				player->DecreaseHp(-50.0f);
-				enemy[i]->Finalize();
-				delete enemy[i];
-				enemy[i] = nullptr;
+					player->SetActive(false);
+					player->DecreaseHp(-50.0f);
+					enemy[i]->Finalize();
+					delete enemy[i];
+					enemy[i] = nullptr;
 			}
 		}
 	}
@@ -160,6 +160,34 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+		}
+	}
+
+	//オイルの更新と当たり判定チェック
+	for (int i = 0; i < 10; i++)
+	{
+		if (oil != nullptr)
+		{
+			oil->Update(player->GetSpeed());
+			//画面外に行ったら、オイルを削除する
+			if (oil->GetLocation().y >= 640.0f)
+			{
+				oil->Finalize();
+				delete oil;
+				oil = nullptr;
+				break;
+			}
+			//当たり判定の確認
+			if (IsHitCheak(player, oil))
+			{
+				player->SetActive(false);
+				oil->Finalize();
+				delete oil;
+				oil = nullptr;
+			}
+		}
+	}
+
 	//プレイヤーの燃料か体力が0未満なら、リザルトに還移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
@@ -185,6 +213,15 @@ void GameMainScene::Draw() const
 		}
 	}
 
+	//オイルの描画
+	/*for (int i = 0; i < 10; i++)
+	{
+		if (oil[i] != nullptr)
+		{
+			oil[i]->Draw();
+		}
+	}*/
+
 	//アイテムの描画
 	for (int i = 0; i < 10; i++)
 	{
@@ -193,6 +230,11 @@ void GameMainScene::Draw() const
 			item[i]->Draw();
 		}
 
+	}
+
+	if (oil != nullptr)
+	{
+		oil->Draw();
 	}
 
 	//プレイヤーの描画
@@ -275,6 +317,7 @@ void GameMainScene::Finalize()
 	//動的確保したオブジェクトを削除する
 	player->Finalize();
 	delete player;
+	delete oil;
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -286,6 +329,7 @@ void GameMainScene::Finalize()
 		}
 	}
 	delete[] enemy;
+
 }
 
 //現在のシーン情報を取得
@@ -332,6 +376,22 @@ bool GameMainScene::IsHitCheak(Player* p, Item* i)
 
 	//当たり判定サイズの大きさを取得
 	Vector2D box_ex = p->GetBoxSize() + i->GetBoxSize();
+
+	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
+	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
+}
+}
+
+//当たり判定処理（プレイヤーとオイル）
+bool GameMainScene::IsHitCheak(Player* p, Oil* o)
+{
+	
+
+	//位置情報の差分を取得
+	Vector2D diff_location = p->GetLocation() - o->GetLocation();
+
+	//当たり判定サイズの大きさを取得
+	Vector2D box_ex = p->GetBoxSize() + o->GetBoxSize();
 
 	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
 	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
