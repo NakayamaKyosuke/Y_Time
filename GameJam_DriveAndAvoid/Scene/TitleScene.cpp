@@ -112,10 +112,9 @@ void TitleScene::Draw() const
 			DrawRotaGraph(230, 220 + i * 40, 1.0, 0, menu_image_num[i], TRUE);
 		}
 	}
-	/*DrawGraph(120, 200, menu_image, TRUE);*/
 
 	//カーソル画像の描画
-	DrawRotaGraph(90+2*cosf(2*(timer/10)+M_PI/3), 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
+	DrawRotaGraph(90+2*cosf(2*(timer/5)+M_PI/3), 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
 }
 
 //終了時処理
