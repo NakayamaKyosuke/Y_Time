@@ -2,7 +2,7 @@
 #include "../Utility/inputControl.h"
 #include"DxLib.h"
 
-Player::Player() :is_active(false),image(NULL),location(0.0f),box_size(0.0f),angle(0.0f),speed(0.0f),hp(0.0f),fuel(0.0f),barrier_count(0),barrier(nullptr)
+Player::Player() :is_active(false),image(NULL),location(0.0f),box_size(0.0f),angle(0.0f),speed(0.0f), move_speed(0.0f),hp(0.0f),fuel(0.0f),barrier_count(0),barrier(nullptr)
 {
 
 }
@@ -20,6 +20,7 @@ void Player::Initialize()
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
 	speed = 3.0f;
+	move_speed = 1.0f;
 	hp = 1000;
 	fuel = 20000;
 	barrier_count = 3;
@@ -50,6 +51,7 @@ void Player::Update()
 
 	//燃料の消費
 	fuel -= speed;
+	fuel -= move_speed - 1;
 
 	//移動処理
 	Movement();
@@ -80,6 +82,16 @@ void Player::Update()
 			delete barrier;
 			barrier = nullptr;
 		}
+	}
+	//ブースト処理
+	if (InputControl::GetButton(XINPUT_BUTTON_X))
+	{
+		move_speed = 3.0f;
+	}
+	else
+	{
+		move_speed = 1.0f;
+
 	}
 }
 
@@ -169,21 +181,21 @@ void Player::Movement()
 	//十字移動処理
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
-		move += Vector2D(-1.0f, 0.0f);
-		angle = -DX_PI_F / 18;
+		move += Vector2D(-move_speed, 0.0f);
+		angle = -DX_PI_F / (16 - move_speed*3);
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
-		move += Vector2D(1.0f, 0.0f);
-		angle = DX_PI_F / 18;
+		move += Vector2D(move_speed, 0.0f);
+		angle = DX_PI_F / (16 - move_speed*3);
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
-		move += Vector2D(0.0f, -1.0f);
+		move += Vector2D(0.0f, -move_speed);
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
-		move += Vector2D(0.0f, 1.0f);
+		move += Vector2D(0.0f, move_speed);
 	}
 	location += move;
 
