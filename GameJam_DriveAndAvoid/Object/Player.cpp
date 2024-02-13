@@ -9,7 +9,7 @@ Player::Player() :is_active(false),image(NULL),location(0.0f),box_size(0.0f),ang
 
 Player::~Player()
 {
-
+	
 }
 
 //‰Šú‰»ˆ—

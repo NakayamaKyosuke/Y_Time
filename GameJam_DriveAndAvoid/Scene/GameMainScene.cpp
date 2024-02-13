@@ -162,6 +162,13 @@ void GameMainScene::Draw() const
 	DrawFormatString(fx, fy, GetColor(0, 0, 0), "FUEL METER");
 	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
 	DrawBoxAA(fx, fy = 20.0f, fx + 100.f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
+
+	//‘Ì—ÍƒQ[ƒW‚Ì•`‰æ
+	float hx = 510.0f;
+	float hy = 430.0f;
+	DrawFormatString(hx, hy, GetColor(0, 0, 0), "PLAYER HP");
+	DrawBoxAA(hx, hy + 20.0f, hx + (player->GetHp() * 100 / 1000), hy + 40.0f, GetColor(255, 0, 0), TRUE);
+	DrawBoxAA(hx, hy = 20.0f, hx + 100.f, hy + 40.0f, GetColor(0, 0, 0), FALSE);
 }
 
 //I—¹ˆ—
