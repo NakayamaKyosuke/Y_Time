@@ -2,7 +2,7 @@
 #include "../Utility/inputControl.h"
 #include"DxLib.h"
 
-Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f), angle(0.0f), speed(0.0f), old_speed(0.0f), move_speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0), barrier(nullptr), boost_img(NULL),boost_flg(false), boost_time(0.0f), obstruct_time(0.0f)
+Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f), angle(0.0f), speed(0.0f), old_speed(0.0f), move_speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0), barrier(nullptr), boost_img(NULL),boost_flg(false), boost_time(0), boost_sound(0), obstruct_time(0)
 {
 
 }
@@ -32,7 +32,7 @@ void Player::Initialize()
 
 	//音源読み込み
 	sounds = LoadSoundMem("Resource/sound/carcheice.mp3");
-	
+	boost_sound = LoadSoundMem("Resource/sound/seed.wav");
 
 	//エラーチェック
 	if (image == -1)
@@ -48,6 +48,10 @@ void Player::Initialize()
 	{
 		throw ("Resource/sounds/carcheice.mp3がありません\n");
 	}
+	if (boost_sound == -1)
+	{
+		throw ("Resource/sound/seed.wavがありません\n");
+	}
 	
 }
 
@@ -62,7 +66,7 @@ void Player::Update()
 	if (boost_flg == true)
 	{
 		move_speed = 10.0f;
-		speed = 10.0f;
+		speed = 12.0f;
 	}
 	//画面阻害処理
 	if (obstruct_time > 0)
@@ -161,6 +165,9 @@ void Player::Finalize()
 {
 	//読み込んだ画像を削除
 	DeleteGraph(image);
+	DeleteGraph(boost_img);
+	DeleteSoundMem(sounds);
+	DeleteSoundMem(boost_sound);
 
 	//バリアが生成されていたら、削除する
 	if (barrier != nullptr)
@@ -236,6 +243,7 @@ void Player::SetItemPower(Item* item)
 		}
 		boost_flg = true;
 		boost_time = item->GetItemSpan();
+		PlaySoundMem(boost_sound, DX_PLAYTYPE_BACK);
 		break;
 	case 1:
 		obstruct_time = item->GetItemSpan();

@@ -18,11 +18,14 @@ private:
 	float old_speed;		//ブーストに入る前の速さ
 	float hp;				//体力
 	float fuel;				//燃料
+
 	int barrier_count;		//バリアの枚数
 	Barrier* barrier;		//バリア
+
 	bool boost_flg;			//強制加速のフラグ
-	int boost_img;			//強制加速の有効時間
+	int boost_img;			//強制加速の画像
 	int boost_time;			//強制加速の有効時間
+	int boost_sound;		//強制加速のSE
 	int obstruct_time;		//画面阻害の有効時間
 public:
 	Player();
