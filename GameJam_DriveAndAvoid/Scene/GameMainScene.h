@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 #include "../Object/Player.h"
 #include "../Object/Enemy.h"
+#include "../Object/Oil.h"
 //動作確認用
 class GameMainScene : public SceneBase
 {
@@ -15,6 +16,7 @@ private:
 	int enemy_count[3]; //通り過ぎた敵カウント
 	Player* player; //プレイヤー
 	Enemy** enemy; //敵
+	Oil* oil;//オイル
 public:
 	GameMainScene();
 	virtual~GameMainScene();
@@ -31,4 +33,6 @@ private:
 	void ReadHighScore();
 	//当たり判定
 	bool IsHitCheak(Player* p, Enemy* e);
+	//
+	bool IsHitCheak(Player* p, Oil* o);
 };
