@@ -1,5 +1,6 @@
 #include "Cone.h"
 #include "DxLib.h"
+#include "Enemy.h"
 
 Cone::Cone() : image(NULL)
 {
@@ -27,7 +28,7 @@ void Cone::Initialize()
 	//“–‚½‚è”»’è‚Ìİ’è
 	box_size = Vector2D(31.0f, 60.0f);
 	//‘¬‚³‚Ìİ’è
-	speed = 0.5f;
+	speed = 3.0f;
 }
 
 void Cone::Update(float speed)
