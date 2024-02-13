@@ -30,8 +30,8 @@ void Player::Initialize()
 
 
 	//音源読み込み
-	sounds = LoadSoundMem("Resource/sounds/carcheice.mp3");
-	
+	sounds = LoadSoundMem("Resource/sound/carcheice.mp3");
+	sounds = LoadSoundMem("Resource/sound/se_blood03.mp3");
 
 	//エラーチェック
 	if (image == -1)
