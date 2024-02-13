@@ -31,7 +31,7 @@ void Player::Initialize()
 
 
 	//音源読み込み
-	sounds = LoadSoundMem("Resource/sounds/carcheice.mp3");
+	sounds = LoadSoundMem("Resource/sound/carcheice.mp3");
 	
 
 	//エラーチェック
@@ -101,7 +101,10 @@ void Player::Update()
 	{
 		PlaySoundMem(sounds, DX_PLAYTYPE_BACK);
 	}
-	
+	if (InputControl::GetButtonUp(XINPUT_BUTTON_X))
+	{
+		StopSoundMem(sounds);
+	}
 	//バリア処理
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && barrier_count > 0)
 	{
