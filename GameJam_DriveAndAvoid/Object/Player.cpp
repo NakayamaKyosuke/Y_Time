@@ -29,6 +29,11 @@ void Player::Initialize()
 	image = LoadGraph("Resource/images/car1pol.bmp");
 	boost_img = LoadGraph("Resource/images/seed1.jpg");
 
+
+	//音源読み込み
+	sounds = LoadSoundMem("Resource/sounds/carcheice.mp3");
+	
+
 	//エラーチェック
 	if (image == -1)
 	{
@@ -38,6 +43,14 @@ void Player::Initialize()
 	{
 		throw ("Resource/images/seed1.jpgがありません\n");
 	}
+}
+
+
+	if (sounds == -1)
+	{
+		throw ("Resource/sounds/carcheice.mp3がありません\n");
+	}
+	
 }
 
 void Player::Update()
@@ -85,6 +98,12 @@ void Player::Update()
 		is_active = false;
 	}
 
+	//加速音
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
+	{
+		PlaySoundMem(sounds, DX_PLAYTYPE_BACK);
+	}
+	
 	//バリア処理
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && barrier_count > 0)
 	{

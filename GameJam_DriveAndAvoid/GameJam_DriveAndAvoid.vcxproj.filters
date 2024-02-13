@@ -75,6 +75,9 @@
     <ClCompile Include="Object\Item.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
+    <ClCompile Include="EndScene.cpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\GameMainScene.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="Object\Item.h">
       <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScene.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
