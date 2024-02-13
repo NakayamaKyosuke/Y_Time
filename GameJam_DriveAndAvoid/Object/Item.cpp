@@ -24,12 +24,12 @@ void Item::Initialize()
 	case 0:
 
 		//画像の読み込み（仮画像）
-		image = LoadGraph("Resource/images/kan.bmp");
+		image = LoadGraph("Resource/images/seed0.jpg");
 
 		//エラーチェック
 		if (image == -1)
 		{
-			throw("Resource/images/kan.bmpがありません\n");
+			throw("Resource/images/seed0.jpgがありません\n");
 		}
 		//効果時間
 		item_span = 250;
@@ -37,15 +37,15 @@ void Item::Initialize()
 	case 1:
 
 		//画像の読み込み（仮画像）
-		image = LoadGraph("Resource/images/gentuki.bmp");
+		image = LoadGraph("Resource/images/flashbang.jpg");
 
 		//エラーチェック
 		if (image == -1)
 		{
-			throw("Resource/images/gentuki.bmpがありません\n");
+			throw("Resource/images/flashbang.jpgがありません\n");
 		}
 		//効果時間
-		item_span = 500;
+		item_span = 300;
 		break;
 	default:
 		throw("未知のアイテムです\n");

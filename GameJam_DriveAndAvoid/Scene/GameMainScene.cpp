@@ -28,7 +28,8 @@ void GameMainScene::Initialize()
 	//画像の読み込み	
 	back_ground = LoadGraph("Resource/images/back.bmp");
 	barrier_image= LoadGraph("Resource/images/barrier.png");
-	obstruct_image = LoadGraph("Resource/images/End.bmp");
+	obstruct_image = LoadGraph("Resource/images/flash.jpg");
+
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
 	//エラーチェック
@@ -46,7 +47,7 @@ void GameMainScene::Initialize()
 	}
 	if (obstruct_image == -1)
 	{
-		throw ("Resource/images/End.bmpがありません\n");
+		throw ("Resource/images/flash.jpgがありません\n");
 	}
 	//オブジェクトの生成
 	player = new Player;
@@ -89,7 +90,11 @@ eSceneType GameMainScene::Update()
 				break;
 			}
 		}
-		//仮に敵と同時生成
+	}
+	//敵生成処理
+	if (mileage / 20 % 250 == 0)
+	{
+		//アイテム生成
 		for (int i = 0; i < 10; i++)
 		{
 			if (item[i] == nullptr)
@@ -100,7 +105,6 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
-
 	//敵の更新と当たり判定チェック
 	for (int i = 0; i < 10; i++)
 	{
@@ -227,13 +231,13 @@ void GameMainScene::Draw() const
 	if (player->GetObstructTime() < 255)
 	{
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, player->GetObstructTime());
+		DrawGraphF(0, 0, obstruct_image, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 	}
 	else
 	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+		DrawGraphF(0, 0, obstruct_image, TRUE);
 	}
-	DrawGraphF(0, 0, obstruct_image, TRUE);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 }
 
 //終了時処理
