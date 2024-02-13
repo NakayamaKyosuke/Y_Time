@@ -1,7 +1,7 @@
 #include"Enemy.h"
 #include"DxLib.h"
 
-Enemy::Enemy(int type, int handle) :type(type), image(handle), speed(0.0f), location(0.0f), box_size(0.0f)
+Enemy::Enemy(int type, int handle) :death_flg(false),type(type), image(handle), explosion_sound(0), speed(0.0f), location(0.0f), box_size(0.0f), wait_timer(0)
 {
 
 }
@@ -14,6 +14,19 @@ Enemy::~Enemy()
 //初期化処理
 void Enemy::Initialize()
 {
+	explosion_image = LoadGraph("Resource/images/explosion.png");
+
+	explosion_sound = LoadSoundMem("Resource/sound/爆発.mp3");
+	//エラーチェック
+	if (explosion_image == -1)
+	{
+		throw ("Resource/images/explosion.pngがありません\n");
+	}
+	if (explosion_sound == -1)
+	{
+		throw ("Resource/sound/爆発.mp3がありません\n");
+	}
+	wait_timer = 20;
 	//出現させるX座標パターンを取得
 	float random_x = (float)(GetRand(4) * 105 + 40);
 	//生成位置の設定
@@ -32,8 +45,16 @@ void Enemy::Update(float speed)
 
 void Enemy::Draw()const
 {
-	//敵画像の描画
-	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	if (death_flg == false)
+	{
+		//敵画像の描画(通常)
+		DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	}
+	else
+	{
+		//敵画像の描画(爆死)
+		DrawRotaGraphF(location.x, location.y, 1.0, 0.0, explosion_image, TRUE);
+	}
 }
 
 void Enemy::Finalize()
@@ -57,4 +78,17 @@ Vector2D Enemy::GetLocation()const
 Vector2D Enemy::GetBoxSize()const
 {
 	return box_size;
+}
+
+bool Enemy::GetDeathFlg()
+{
+	return death_flg;
+}
+void Enemy::SetDeathFlg(bool flg)
+{
+	death_flg = flg;
+	if (death_flg == true)
+	{
+		PlaySoundMem(explosion_sound, DX_PLAYTYPE_BACK);
+	}
 }

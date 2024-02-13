@@ -51,7 +51,8 @@ public:
 	int GetBarrierCount()const;		//バリアの枚数取得
 	bool IsBarrier()const;			//バリア有効か？を取得
 	void SetItemPower(Item* item);  //アイテムによって起こる効果の開始
-	int GetObstructTime()const;			//画面阻害の時間を取得
+	bool GetBoostFlg()const;				//ブースト中か取得
+	int GetObstructTime()const;		//画面阻害の時間を取得
 private:
 	void Movement();				//移動処理
 	void Acceleration();			//加速処理

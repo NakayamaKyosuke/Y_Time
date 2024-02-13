@@ -137,13 +137,22 @@ eSceneType GameMainScene::Update()
 			}
 
 			//当たり判定の確認
-			if (IsHitCheak(player, enemy[i]))
+			if (IsHitCheak(player, enemy[i]) && enemy[i]->GetDeathFlg() == false)
 			{
-				player->SetActive(false);
-				player->DecreaseHp(-50.0f);
-				enemy[i]->Finalize();
-				delete enemy[i];
-				enemy[i] = nullptr;
+				//プレイヤーがブースト中なら、敵に当たった時加点
+				if (player->GetBoostFlg() == true)
+				{
+					enemy_count[enemy[i]->GetType()]++;
+					enemy[i]->SetDeathFlg(true);
+				}
+				else
+				{
+					player->SetActive(false);
+					player->DecreaseHp(-50.0f);
+					enemy[i]->Finalize();
+					delete enemy[i];
+					enemy[i] = nullptr;
+				}
 			}
 		}
 	}

@@ -77,6 +77,7 @@ void Player::Update()
 	{
 		move_speed = 10.0f;
 		speed = 12.0f;
+		angle += DX_PI_F / 12.0f;
 	}
 	//画面阻害処理
 	if (obstruct_time > 0)
@@ -155,7 +156,7 @@ void Player::Update()
 
 void Player::Draw()const
 {
-	if (boost_time > 0)
+	if (InputControl::GetButton(XINPUT_BUTTON_X))
 	{
 		//プレイヤー画像の描画
 		DrawRotaGraphF(location.x, location.y, 1.0, angle, speedup_image, TRUE);
@@ -275,6 +276,12 @@ void Player::SetItemPower(Item* item)
 	}
 }
 
+//ブースト中か取得
+bool Player::GetBoostFlg()const
+{
+	return boost_flg;
+}
+
 //画面阻害の時間を取得
 int Player::GetObstructTime()const
 {
@@ -285,18 +292,27 @@ int Player::GetObstructTime()const
 void Player::Movement()
 {
 	Vector2D move = Vector2D(0.0f);
-	angle = 0.0f;
+	if (boost_flg == false)
+	{
+		angle = 0.0f;
+    }
 
 	//十字移動処理
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		move += Vector2D(-move_speed, 0.0f);
-		angle = -DX_PI_F / (16 - move_speed);
+		if (boost_flg == false)
+		{
+			angle = -DX_PI_F / (16 - move_speed);
+		}
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		move += Vector2D(move_speed, 0.0f);
-		angle = DX_PI_F / (16 - move_speed);
+		if (boost_flg == false)
+		{
+			angle = DX_PI_F / (16 - move_speed);
+		}
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
