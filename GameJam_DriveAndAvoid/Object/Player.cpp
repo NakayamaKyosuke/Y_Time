@@ -202,7 +202,7 @@ void Player::Movement()
 void Player::Acceleration()
 {
 	//LBƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çAŒ¸‘¬‚·‚é
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 1.0f)
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 3.0f)
 	{
 		speed -= 1.0f;
 	}
