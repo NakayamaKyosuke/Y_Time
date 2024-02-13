@@ -28,7 +28,7 @@ void Oil::Initialize()
 	//“–‚½‚è”»’è‚Ìİ’è
 	box_size = Vector2D(31.0f, 60.0f);
 	//‘¬‚³‚Ìİ’è
-	speed = 0.3;
+	speed = 0.01;
 }
 
 void Oil::Update(float speed)
