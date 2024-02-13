@@ -43,8 +43,6 @@ void Player::Initialize()
 	{
 		throw ("Resource/images/seed1.jpg‚ª‚ ‚è‚Ü‚¹‚ñ\n");
 	}
-}
-
 
 	if (sounds == -1)
 	{
