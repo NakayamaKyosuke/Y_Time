@@ -2,7 +2,7 @@
 #include "../Utility/inputControl.h"
 #include"DxLib.h"
 
-Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f), angle(0.0f), speed(0.0f), old_speed(0.0f), move_speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0), barrier(nullptr), boost_flg(false), boost_time(0.0f), obstruct_time(0.0f)
+Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f), angle(0.0f), speed(0.0f), old_speed(0.0f), move_speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0), barrier(nullptr), boost_img(NULL),boost_flg(false), boost_time(0.0f), obstruct_time(0.0f)
 {
 
 }
@@ -27,16 +27,21 @@ void Player::Initialize()
 
 	//画像の読込
 	image = LoadGraph("Resource/images/car1pol.bmp");
+	boost_img = LoadGraph("Resource/images/seed1.jpg");
 
 
 	//音源読み込み
 	sounds = LoadSoundMem("Resource/sound/carcheice.mp3");
-	sounds = LoadSoundMem("Resource/sound/se_blood03.mp3");
+	
 
 	//エラーチェック
 	if (image == -1)
 	{
 		throw ("Resource/images/car1pol.bmpがありません\n");
+	}
+	if (boost_img == -1)
+	{
+		throw ("Resource/images/seed1.jpgがありません\n");
 	}
 
 	if (sounds == -1)
@@ -48,6 +53,22 @@ void Player::Initialize()
 
 void Player::Update()
 {
+	//強制ブースト処理
+	if (--boost_time <= 0 && boost_flg == true)
+	{
+		boost_flg = false;
+		speed = old_speed;
+	}
+	if (boost_flg == true)
+	{
+		move_speed = 10.0f;
+		speed = 10.0f;
+	}
+	//画面阻害処理
+	if (obstruct_time > 0)
+	{
+		obstruct_time -= 2.0f;
+	}
 	//操作不可状態であれば、自信を回転させる
 	if (!is_active)
 	{
@@ -80,7 +101,10 @@ void Player::Update()
 	{
 		PlaySoundMem(sounds, DX_PLAYTYPE_BACK);
 	}
-	
+	if (InputControl::GetButtonUp(XINPUT_BUTTON_X))
+	{
+		StopSoundMem(sounds);
+	}
 	//バリア処理
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && barrier_count > 0)
 	{
@@ -113,24 +137,6 @@ void Player::Update()
 			move_speed = 1.0f;
 		}
 	}
-
-	//強制ブースト処理
-	if(--boost_time <= 0 && boost_flg == true)
-	{
-		boost_flg = false;
-		speed = old_speed;
-	}
-	if (boost_flg == true)
-	{
-		move_speed = 10.0f;
-		speed = 10.0f;
-	}
-
-	//画面阻害処理
-	if (obstruct_time > 0)
-	{
-		obstruct_time -= move_speed;
-	}
 }
 
 void Player::Draw()const
@@ -142,6 +148,12 @@ void Player::Draw()const
 	if (barrier != nullptr)
 	{
 		barrier->Draw(this->location);
+	}
+
+	//強制速度アップの最初の部分で種割れ
+	if (boost_time > 200)
+	{
+		DrawRotaGraphF(location.x, location.y-100, 1.0, angle, boost_img, TRUE);
 	}
 }
 

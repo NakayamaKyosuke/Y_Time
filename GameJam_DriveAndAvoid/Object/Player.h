@@ -21,6 +21,7 @@ private:
 	int barrier_count;		//バリアの枚数
 	Barrier* barrier;		//バリア
 	bool boost_flg;			//強制加速のフラグ
+	int boost_img;			//強制加速の有効時間
 	int boost_time;			//強制加速の有効時間
 	int obstruct_time;		//画面阻害の有効時間
 public:
