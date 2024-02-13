@@ -2,12 +2,7 @@
 #include "../Utility/inputControl.h"
 #include"DxLib.h"
 
-
-
-
-int sounds;
-
-Player::Player() :is_active(false),image(NULL),location(0.0f),box_size(0.0f),angle(0.0f),speed(0.0f), move_speed(0.0f),hp(0.0f),fuel(0.0f),barrier_count(0),barrier(nullptr)
+Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f), angle(0.0f), speed(0.0f), old_speed(0.0f), move_speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0), barrier(nullptr), boost_flg(false), boost_time(0.0f), obstruct_time(0.0f)
 {
 
 }
@@ -105,15 +100,36 @@ void Player::Update()
 			barrier = nullptr;
 		}
 	}
-	//ブースト処理
-	if (InputControl::GetButton(XINPUT_BUTTON_X))
+	//強制ブースト中は制御不能
+	if (boost_time <= 0)
 	{
-		move_speed = 3.0f;
+		//ブースト処理
+		if (InputControl::GetButton(XINPUT_BUTTON_X))
+		{
+			move_speed = 3.0f;
+		}
+		else
+		{
+			move_speed = 1.0f;
+		}
 	}
-	else
-	{
-		move_speed = 1.0f;
 
+	//強制ブースト処理
+	if(--boost_time <= 0 && boost_flg == true)
+	{
+		boost_flg = false;
+		speed = old_speed;
+	}
+	if (boost_flg == true)
+	{
+		move_speed = 10.0f;
+		speed = 10.0f;
+	}
+
+	//画面阻害処理
+	if (obstruct_time > 0)
+	{
+		obstruct_time -= move_speed;
 	}
 }
 
@@ -164,6 +180,7 @@ Vector2D Player::GetBoxSize()const
 {
 	return this->box_size;
 }
+
 //速さ取得処理
 float Player::GetSpeed()const
 {
@@ -192,6 +209,34 @@ int Player::GetBarrierCount()const
 bool Player::IsBarrier()const
 {
 	return (barrier != nullptr);
+}
+
+//アイテムによって起こる効果の開始
+void Player::SetItemPower(Item* item)
+{
+	switch (item->GetType())
+	{
+	case 0:
+		if (boost_flg == false)
+		{
+			//強制加速前の速度を保持
+			old_speed = speed;
+		}
+		boost_flg = true;
+		boost_time = item->GetItemSpan();
+		break;
+	case 1:
+		obstruct_time = item->GetItemSpan();
+		break;
+	default:
+		break;
+	}
+}
+
+//画面阻害の時間を取得
+int Player::GetObstructTime()const
+{
+	return obstruct_time;
 }
 
 //移動処理
@@ -235,14 +280,18 @@ void Player::Movement()
 //加減速処理
 void Player::Acceleration()
 {
-	//LBボタンが押されたら、減速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 3.0f)
+	//強制加速中でないなら、速度調整できる
+	if (boost_flg == false)
 	{
-		speed -= 1.0f;
-	}
-	//RBボタンが押されたら、減速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed < 10.0f)
-	{
-		speed += 1.0f;
+		//LBボタンが押されたら、減速する
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 3.0f)
+		{
+			speed -= 1.0f;
+		}
+		//RBボタンが押されたら、減速する
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed < 10.0f)
+		{
+			speed += 1.0f;
+		}
 	}
 }
