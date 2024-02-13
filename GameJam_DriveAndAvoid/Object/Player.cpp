@@ -2,6 +2,11 @@
 #include "../Utility/inputControl.h"
 #include"DxLib.h"
 
+
+
+
+int sounds;
+
 Player::Player() :is_active(false),image(NULL),location(0.0f),box_size(0.0f),angle(0.0f),speed(0.0f), move_speed(0.0f),hp(0.0f),fuel(0.0f),barrier_count(0),barrier(nullptr)
 {
 
@@ -28,11 +33,22 @@ void Player::Initialize()
 	//画像の読込
 	image = LoadGraph("Resource/images/car1pol.bmp");
 
+
+	//音源読み込み
+	sounds = LoadSoundMem("Resource/sounds/carcheice.mp3");
+	
+
 	//エラーチェック
 	if (image == -1)
 	{
 		throw ("Resource/images/car1pol.bmpがありません\n");
 	}
+
+	if (sounds == -1)
+	{
+		throw ("Resource/sounds/carcheice.mp3がありません\n");
+	}
+	
 }
 
 void Player::Update()
@@ -64,6 +80,12 @@ void Player::Update()
 		is_active = false;
 	}
 
+	//加速音
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_X))
+	{
+		PlaySoundMem(sounds, DX_PLAYTYPE_BACK);
+	}
+	
 	//バリア処理
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && barrier_count > 0)
 	{

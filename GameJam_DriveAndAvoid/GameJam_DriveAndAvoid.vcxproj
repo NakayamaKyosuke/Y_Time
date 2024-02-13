@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Barrier.cpp" />
     <ClCompile Include="Object\Enemy.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EndScene.h" />
     <ClInclude Include="Object\Barrier.h" />
     <ClInclude Include="Object\Enemy.h" />
     <ClInclude Include="Object\Player.h" />
