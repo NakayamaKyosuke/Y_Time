@@ -131,7 +131,7 @@
     <ClInclude Include="EndScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Oil.h">
+    <ClInclude Include="Object\Oil.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
   </ItemGroup>

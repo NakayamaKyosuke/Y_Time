@@ -2,6 +2,8 @@
 #include"../Object/RankingData.h"
 #include"DxLib.h"
 #include<math.h>
+#include"../Object/Oil.h"
+
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
@@ -160,8 +162,8 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
-		}
-	}
+
+	
 
 	//オイルの更新と当たり判定チェック
 	for (int i = 0; i < 10; i++)
@@ -180,6 +182,7 @@ eSceneType GameMainScene::Update()
 			//当たり判定の確認
 			if (IsHitCheak(player, oil))
 			{
+				//PlaySoundMem(sounds, DX_PLAYTYPE_BACK);
 				player->SetActive(false);
 				oil->Finalize();
 				delete oil;
@@ -380,7 +383,7 @@ bool GameMainScene::IsHitCheak(Player* p, Item* i)
 	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
 	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
-}
+
 
 //当たり判定処理（プレイヤーとオイル）
 bool GameMainScene::IsHitCheak(Player* p, Oil* o)
