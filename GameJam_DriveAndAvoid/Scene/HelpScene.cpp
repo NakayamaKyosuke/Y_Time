@@ -52,6 +52,9 @@ void HelpScene::Draw() const
 	DrawString(20, 200, "燃料が尽きるか障害物に", 0xffffff, 0);
 	DrawString(20, 220, "数回当たるとゲームオーバーです。", 0xffffff, 0);
 
+	DrawString(20, 260, "十字キー:移動 Xボタン:ブースト(移動速度上昇)", 0xffffff, 0);
+	DrawString(20, 280, "RB:加速 LB:減速  Bボタン:バリア", 0xffffff, 0);
+
 	DrawString(150, 450, "---- Bボタンを押してタイトルへ戻る ----",0xffffff, 0);
 }
 

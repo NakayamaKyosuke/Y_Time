@@ -12,6 +12,7 @@ private:
 	Vector2D box_size;		//当たり判定の大きさ
 	float angle;			//角度
 	float speed;			//速さ
+	float move_speed;		//画面上で上下左右する時の速さ
 	float hp;				//体力
 	float fuel;				//燃料
 	int barrier_count;		//バリアの枚数
