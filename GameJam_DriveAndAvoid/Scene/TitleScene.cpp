@@ -21,37 +21,18 @@ void TitleScene::Initialize()
 	wait = 20;
 	//画像の読み込み
 	background_image = Resource::LoadAndCheck("Resource/images/title/D&D_Title.jpg");
-	titlemenu_image = LoadGraph("Resource/images/title/D&D_TitleMenu.jpg");
-	menupole_image = LoadGraph("Resource/images/title/D&D_MenuPole.jpg");
-	cursor_image = LoadGraph("Resource/images/cone.bmp");
+	titlemenu_image = Resource::LoadAndCheck("Resource/images/title/D&D_TitleMenu.jpg");
+	menupole_image = Resource::LoadAndCheck("Resource/images/title/D&D_MenuPole.jpg");
+	cursor_image = Resource::LoadAndCheck("Resource/images/cone.bmp");
 
-	cursor_sound = LoadSoundMem("Resource/sound/カーソル移動8.mp3");
-	enter_sound = LoadSoundMem("Resource/sound/爆発.mp3");
+	//音声の読み込み
+	cursor_sound = Resource::LoadAndCheck("Resource/sound/カーソル移動8.mp3");
+	enter_sound = Resource::LoadAndCheck("Resource/sound/爆発.mp3");
 
 	//エラーチェック
-	if (LoadDivGraph("Resource/images/title/D&D_Menu2.jpg", MENU_NUM, 1, MENU_NUM, 185, 40, menu_image_num) == -1)
+	if (LoadDivGraph("Resource/images/title/D&D_Menu.jpg", MENU_NUM, 1, MENU_NUM, 185, 40, menu_image_num) == -1)
 	{
-		throw("Resource/images/title/D&D_Menu2.jpgの読込に失敗しました。\n");
-	}
-	if (titlemenu_image == -1)
-	{
-		throw("Resource/images/title/D&D_TitleMenu.jpgがありません\n");
-	}
-	if (menupole_image == -1)
-	{
-		throw("Resource/images/title/D&D_MenuPole.jpgがありません\n");
-	}
-	if (cursor_image == -1)
-	{
-		throw("Resource/images/cone.pngがありません\n");
-	}
-	if (cursor_sound == -1)
-	{
-		throw("Resource/sound/カーソル移動8.mp3がありません\n");
-	}
-	if (enter_sound == -1)
-	{
-		throw("Resource/sound/爆発.mp3がありません\n");
+		throw("Resource/images/title/D&D_Menu.jpgの読込に失敗しました。\n");
 	}
 }
 
