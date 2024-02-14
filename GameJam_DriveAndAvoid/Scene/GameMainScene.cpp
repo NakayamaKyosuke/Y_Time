@@ -219,14 +219,12 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-				player->SetActive(false);
+				/*player->SetActive(false);
 				player->DecreaseHp(-50.0f);
 				enemy[i]->Finalize();
 				delete enemy[i];
-				enemy[i] = nullptr;
-			}
-		}
-	}
+				enemy[i] = nullptr;*/
+
 	//コーンの更新と当たり判定チェック
 	for (int i = 0; i < 10; i++)
 	{
@@ -261,6 +259,7 @@ eSceneType GameMainScene::Update()
 	return GetNowScene();
 
 	}
+
 //描画処理
 void GameMainScene::Draw() const
 {
@@ -349,7 +348,7 @@ void GameMainScene::Draw() const
 	{
 		DrawGraphF(0, 0, obstruct_image, TRUE);
 	}
-}
+
 
 	//体力ゲージの描画
 	float hx = 510.0f;
@@ -475,7 +474,7 @@ bool GameMainScene::IsHitCheak(Player* p, Oil* o)
 	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
 	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
-}
+
 
 bool GameMainScene::IsHitCheak(Player* p, Cone* c)
 {
