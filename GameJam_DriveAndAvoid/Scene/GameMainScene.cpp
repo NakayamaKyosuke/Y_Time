@@ -35,7 +35,7 @@ void GameMainScene::Initialize()
 	oilsounds = LoadSoundMem("Resource/sound/se_blood03.mp3");
 	hit_SE = LoadSoundMem("Resource/sound/gatigire.mp3");
 
-	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
+	int result = LoadDivGraph("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
 	
 	//エラーチェック
 	if (back_ground == 1)
@@ -48,7 +48,7 @@ void GameMainScene::Initialize()
 	}
 	if (result == -1)
 	{
-		throw("Resource/images/car.bmpがありません\n");
+		throw("Resource/images/cars2.bmpがありません\n");
 	}
 	if (obstruct_image == -1)
 	{
