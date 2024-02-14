@@ -72,6 +72,9 @@
     <ClCompile Include="Utility\InputControl.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Cone.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
     <ClCompile Include="Object\Item.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Cone.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="Object\Item.h">
       <Filter>ヘッダー ファイル\Object</Filter>

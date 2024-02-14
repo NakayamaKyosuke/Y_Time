@@ -9,7 +9,7 @@ Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f),
 
 Player::~Player()
 {
-
+	
 }
 
 //‰Šú‰»ˆ—
@@ -19,6 +19,8 @@ void Player::Initialize()
 	location = Vector2D(320.0f, 380.0f);
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
+	speed - 3.0f;
+	hp = 500;
 	speed = 3.0f;
 	move_speed = 1.0f;
 	hp = 1000;

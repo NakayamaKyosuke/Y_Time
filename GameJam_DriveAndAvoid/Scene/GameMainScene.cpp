@@ -2,6 +2,7 @@
 #include"../Object/RankingData.h"
 #include"DxLib.h"
 #include<math.h>
+#include "../Object/Cone.h"
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
@@ -52,6 +53,7 @@ void GameMainScene::Initialize()
 	//オブジェクトの生成
 	player = new Player;
 	enemy = new Enemy * [10];
+	cone = new Cone;
 	item = new Item * [10];
 
 	//オブジェクトの初期化
@@ -119,6 +121,12 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
+	if (mileage / 20 % 100 == 0) {
+		cone = new Cone;
+		cone->Initialize();
+	}
+
 	//敵の更新と当たり判定チェック
 	for (int i = 0; i < 10; i++)
 	{
@@ -211,6 +219,39 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
+				player->SetActive(false);
+				player->DecreaseHp(-50.0f);
+				enemy[i]->Finalize();
+				delete enemy[i];
+				enemy[i] = nullptr;
+			}
+		}
+	}
+	//コーンの更新と当たり判定チェック
+	for (int i = 0; i < 10; i++)
+	{
+		if (cone != nullptr)
+		{
+			cone->Update(player->GetSpeed());
+
+			//画面外に行ったら、コーンを削除
+			if (cone->GetLocation().y >= 640.0f)
+			{
+				delete cone;
+				cone = nullptr;
+				break;
+			}
+
+			//当たり判定の確認
+			if (IsHitCheak(player, cone))
+			{
+				player->SetActive(false);
+				player->DecreaseHp(-25.0f);
+				delete cone;
+				cone = nullptr;
+			}
+		}
+	}
 	//プレイヤーの燃料か体力が0未満なら、リザルトに還移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
@@ -260,6 +301,11 @@ void GameMainScene::Draw() const
 		oil->Draw();
 	}
 
+	if (cone != nullptr) {
+		cone->Draw();
+	}
+
+
 	//プレイヤーの描画
 	player->Draw();
 
@@ -305,6 +351,14 @@ void GameMainScene::Draw() const
 	}
 }
 
+	//体力ゲージの描画
+	float hx = 510.0f;
+	float hy = 430.0f;
+	DrawFormatString(hx, hy, GetColor(0, 0, 0), "PLAYER HP");
+	DrawBoxAA(hx, hy + 20.0f, hx + (player->GetHp() * 100 / 500), hy + 40.0f, GetColor(255, 0, 0), TRUE);
+	DrawBoxAA(hx, hy = 20.0f, hx + 100.f, hy + 40.0f, GetColor(0, 0, 0), FALSE);
+}
+
 //終了時処理
 void GameMainScene::Finalize()
 {
@@ -341,6 +395,8 @@ void GameMainScene::Finalize()
 	player->Finalize();
 	delete player;
 	delete oil;
+
+	delete cone;
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -415,6 +471,25 @@ bool GameMainScene::IsHitCheak(Player* p, Oil* o)
 
 	//当たり判定サイズの大きさを取得
 	Vector2D box_ex = p->GetBoxSize() + o->GetBoxSize();
+
+	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
+	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
+}
+}
+
+bool GameMainScene::IsHitCheak(Player* p, Cone* c)
+{
+	//プレイヤーがバリアを張っていたら、当たり判定を無視する
+	if (p->IsBarrier())
+	{
+		return false;
+	}
+
+	//位置情報の差分を取得
+	Vector2D diff_location = p->GetLocation() - c->GetLocation();
+
+	//当たり判定サイズの大きさを取得
+	Vector2D box_ex = p->GetBoxSize() + c->GetBoxSize();
 
 	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
 	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
