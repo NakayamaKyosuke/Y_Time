@@ -23,6 +23,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	{
 		//エラー発生内容の出力
 		OutputDebugString(err_log);
+		OutputDebugString("の読込に失敗しました。\n");
 
 		//エラー終了を通知
 		return -1;

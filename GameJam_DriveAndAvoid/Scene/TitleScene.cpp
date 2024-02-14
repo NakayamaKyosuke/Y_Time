@@ -1,10 +1,11 @@
 #include"TitleScene.h"
 #include"../Utility/inputControl.h"
+#include"../Utility/ResourceChecker.h"
 #include"DxLib.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-TitleScene::TitleScene() : wait(0),timer(0),background_image(NULL), titlemenu_image(NULL), menu_image_num{0}, cursor_image(NULL), menu_cursor(0), cursor_sound(0), enter_sound(0)
+TitleScene::TitleScene() : wait(0),timer(0), titlemenu_image(NULL), menu_image_num{0}, cursor_image(NULL), menu_cursor(0), cursor_sound(0), enter_sound(0)
 {
 
 }
@@ -19,7 +20,7 @@ void TitleScene::Initialize()
 {
 	wait = 20;
 	//âÊëúÇÃì«Ç›çûÇ›
-	background_image = LoadGraph("Resource/images/title/D&D_Title.jpg");
+	background_image = Resource::LoadAndCheck("Resource/images/title/D&D_Title.jpg");
 	titlemenu_image = LoadGraph("Resource/images/title/D&D_TitleMenu.jpg");
 	menupole_image = LoadGraph("Resource/images/title/D&D_MenuPole.jpg");
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
@@ -31,10 +32,6 @@ void TitleScene::Initialize()
 	if (LoadDivGraph("Resource/images/title/D&D_Menu2.jpg", MENU_NUM, 1, MENU_NUM, 185, 40, menu_image_num) == -1)
 	{
 		throw("Resource/images/title/D&D_Menu2.jpgÇÃì«çûÇ…é∏îsÇµÇ‹ÇµÇΩÅB\n");
-	}
-	if (background_image == -1)
-	{
-		throw("Resource/images/title/D&D_Title.jpgÇ™Ç†ÇËÇ‹ÇπÇÒ\n");
 	}
 	if (titlemenu_image == -1)
 	{

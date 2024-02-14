@@ -168,6 +168,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
+    <ClCompile Include="Utility\ResourceChecker.h.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Barrier.h" />
@@ -177,7 +178,6 @@
     <ClInclude Include="Object\Oil.h" />
     <ClInclude Include="Object\Player.h" />
     <ClInclude Include="Object\RankingData.h" />
-    <ClInclude Include="ResourceChecker.h" />
     <ClInclude Include="Scene\GameMainScene.h" />
     <ClInclude Include="Scene\HelpScene.h" />
     <ClInclude Include="Scene\RankingDispScene.h" />
@@ -187,6 +187,7 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Utility\inputControl.h" />
+    <ClInclude Include="Utility\ResourceChecker.h" />
     <ClInclude Include="Utility\Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

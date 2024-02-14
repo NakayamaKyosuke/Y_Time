@@ -17,6 +17,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
+    <ClCompile Include="Utility\ResourceChecker.h.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Barrier.h" />
@@ -36,6 +37,6 @@
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Utility\inputControl.h" />
     <ClInclude Include="Utility\Vector2D.h" />
-    <ClInclude Include="ResourceChecker.h" />
+    <ClInclude Include="Utility\ResourceChecker.h" />
   </ItemGroup>
 </Project>
