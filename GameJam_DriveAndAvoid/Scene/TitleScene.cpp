@@ -108,9 +108,7 @@ eSceneType TitleScene::Update()
 			case 2:
 				return eSceneType::E_HELP;
 			case 3:
-				//クレジット画面
-				/*return eSceneType::E_END;*/
-				break;
+				return eSceneType::E_CREDIT;
 			case 4:
 				return eSceneType::E_END;
 			}

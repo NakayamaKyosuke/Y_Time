@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Credit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Barrier.cpp" />
     <ClCompile Include="Object\Cone.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Credit.h" />
     <ClInclude Include="Object\Barrier.h" />
     <ClInclude Include="Object\Cone.h" />
     <ClInclude Include="Object\Enemy.h" />
