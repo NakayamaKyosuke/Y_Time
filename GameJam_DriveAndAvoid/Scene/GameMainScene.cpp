@@ -2,12 +2,9 @@
 #include"../Object/RankingData.h"
 #include"DxLib.h"
 #include<math.h>
-<<<<<<< HEAD
 #include"../Object/Oil.h"
-
-=======
 #include "../Object/Cone.h"
->>>>>>> main
+
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
