@@ -20,6 +20,7 @@ private:
 	Player* player; //プレイヤー
 	Enemy** enemy; //敵
 	Item** item;   //アイテム（ロケットエンジン、画面阻害）
+	int oilsounds;
 
 	Oil* oil;//オイル
 public:

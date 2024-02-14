@@ -7,7 +7,6 @@ class Oil
 private:
 	int oil_image;//ƒIƒCƒ‹‰æ‘œ
 	int image;				//‰æ‘œ
-	int sounds;
 	float speed;			//‘¬‚³
 	Vector2D location;		//ˆÊ’uî•ñ
 	Vector2D box_size;		//“–‚½‚è”»’è‚Ì‘å‚«‚³
