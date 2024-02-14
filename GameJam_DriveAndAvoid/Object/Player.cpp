@@ -9,7 +9,7 @@ Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f),
 
 Player::~Player()
 {
-
+	
 }
 
 //初期化処理
@@ -19,9 +19,10 @@ void Player::Initialize()
 	location = Vector2D(320.0f, 380.0f);
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
+	speed - 3.0f;
+	hp = 500;
 	speed = 3.0f;
 	move_speed = 1.0f;
-	hp = 1000;
 	fuel = 20000;
 	barrier_count = 3;
 
@@ -33,10 +34,14 @@ void Player::Initialize()
 
 	//音源読み込み
 	sounds = LoadSoundMem("Resource/sound/carcheice.mp3");
+<<<<<<< HEAD
+	
+=======
 	boost_sound = LoadSoundMem("Resource/sound/seed.wav");
 	boost_sound_two = LoadSoundMem("Resource/sound/invoke.wav");
 	obstruct_sound = LoadSoundMem("Resource/sound/flash.wav");
 
+>>>>>>> main
 	//エラーチェック
 	if (image == -1)
 	{
