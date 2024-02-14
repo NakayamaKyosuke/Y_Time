@@ -183,16 +183,53 @@ eSceneType GameMainScene::Update()
 				item[i]->Finalize();
 				delete item[i];
 				item[i] = nullptr;
-				break;
+				continue;
 			}
 
 			//当たり判定の確認
 			if (IsHitCheak(player, item[i]))
 			{
-				player->SetItemPower(item[i]);
-				item[i]->Finalize();
-				delete item[i];
-				item[i] = nullptr;
+				if (item[i]->GetType() == 2) {
+					if (player->GetHp() <= 500) {
+						player->SetItemPower(item[i]);
+						player->DecreaseHp(50.0f);
+						item[i]->Finalize();
+						delete item[i];
+						item[i] = nullptr;
+						continue;
+					}
+					else {
+						player->SetItemPower(item[i]);
+						item[i]->Finalize();
+						delete item[i];
+						item[i] = nullptr;
+						continue;
+					}
+				}
+				if (item[i]->GetType() == 3) {
+					if (player->GetFuel() <= 20000) {
+						player->SetItemPower(item[i]);
+						player->IncreaseFuel(2000.0f);
+						item[i]->Finalize();
+						delete item[i];
+						item[i] = nullptr;
+						continue;
+					}
+					else {
+						player->SetItemPower(item[i]);
+						item[i]->Finalize();
+						delete item[i];
+						item[i] = nullptr;
+						continue;
+					}
+				}
+				else {
+					player->SetItemPower(item[i]);
+					item[i]->Finalize();
+					delete item[i];
+					item[i] = nullptr;
+					continue;
+				}
 			}
 		}
 	}
@@ -339,6 +376,13 @@ void GameMainScene::Draw() const
 	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
 	DrawBoxAA(fx, fy = 20.0f, fx + 100.f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
 
+	//体力ゲージの描画
+	float hx = 510.0f;
+	float hy = 430.0f;
+	DrawFormatString(hx, hy, GetColor(0, 0, 0), "PLAYER HP");
+	DrawBoxAA(hx, hy + 20.0f, hx + (player->GetHp() * 100 / 500), hy + 40.0f, GetColor(255, 0, 0), TRUE);
+	DrawBoxAA(hx, hy = 20.0f, hx + 100.f, hy + 40.0f, GetColor(0, 0, 0), FALSE);
+
 	//画面阻害アイテムの有効時間に応じて阻害画像を描画
 	if (player->GetObstructTime() < 255)
 	{
@@ -350,14 +394,6 @@ void GameMainScene::Draw() const
 	{
 		DrawGraphF(0, 0, obstruct_image, TRUE);
 	}
-
-
-	//体力ゲージの描画
-	float hx = 510.0f;
-	float hy = 430.0f;
-	DrawFormatString(hx, hy, GetColor(0, 0, 0), "PLAYER HP");
-	DrawBoxAA(hx, hy + 20.0f, hx + (player->GetHp() * 100 / 500), hy + 40.0f, GetColor(255, 0, 0), TRUE);
-	DrawBoxAA(hx, hy = 20.0f, hx + 100.f, hy + 40.0f, GetColor(0, 0, 0), FALSE);
 }
 
 //終了時処理
