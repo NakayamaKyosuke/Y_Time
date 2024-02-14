@@ -66,7 +66,7 @@ void Item::Initialize()
 		//エラーチェック
 		if (image == -1)
 		{
-			throw("Resource/images/gasoline.bmpがありません\n");
+			throw("Resource/images/gasoline.pngがありません\n");
 		}
 		break;
 	default:
