@@ -1,9 +1,5 @@
 #include"ResourceChecker.h"
 #include "DxLib.h"
-#include<iostream>
-#include <string>
-#include <string.h>
-using namespace std;
 
 //画像、音声の読込＆エラーチェック
 int Resource::LoadAndCheck(const char* _data)
