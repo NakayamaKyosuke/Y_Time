@@ -463,7 +463,6 @@ bool GameMainScene::IsHitCheak(Player* p, Item* i)
 	return((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 
-
 //当たり判定処理（プレイヤーとオイル）
 bool GameMainScene::IsHitCheak(Player* p, Oil* o)
 {

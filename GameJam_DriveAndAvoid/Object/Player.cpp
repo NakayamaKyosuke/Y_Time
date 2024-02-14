@@ -37,6 +37,7 @@ void Player::Initialize()
 	boost_sound = LoadSoundMem("Resource/sound/seed.wav");
 	boost_sound_two = LoadSoundMem("Resource/sound/invoke.wav");
 	obstruct_sound = LoadSoundMem("Resource/sound/flash.wav");
+
 	//エラーチェック
 	if (image == -1)
 	{
