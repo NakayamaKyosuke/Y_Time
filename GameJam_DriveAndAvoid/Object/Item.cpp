@@ -50,18 +50,18 @@ void Item::Initialize()
 	case 2:
 
 		//画像の読み込み（仮画像）
-		image = LoadGraph("Resource/images/supana.bmp");
+		image = LoadGraph("Resource/images/supana.png");
 
 		//エラーチェック
 		if (image == -1)
 		{
-			throw("Resource/images/supana.bmpがありません\n");
+			throw("Resource/images/supana.pngがありません\n");
 		}
 		break;
 	case 3:
 
 		//画像の読み込み（仮画像）
-		image = LoadGraph("Resource/images/gasoline.bmp");
+		image = LoadGraph("Resource/images/gasoline.png");
 
 		//エラーチェック
 		if (image == -1)
