@@ -55,7 +55,7 @@ void Item::Initialize()
 		//エラーチェック
 		if (image == -1)
 		{
-			throw("Resource/images/supana.pngがありません\n");
+			throw("Resource/images/flashbang.jpgがありません\n");
 		}
 		break;
 	case 3:
@@ -66,7 +66,7 @@ void Item::Initialize()
 		//エラーチェック
 		if (image == -1)
 		{
-			throw("Resource/images/gasoline.pngがありません\n");
+			throw("Resource/images/flashbang.jpgがありません\n");
 		}
 		break;
 	default:
