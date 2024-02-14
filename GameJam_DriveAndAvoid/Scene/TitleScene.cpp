@@ -19,7 +19,7 @@ void TitleScene::Initialize()
 {
 	wait = 20;
 	//‰æ‘œ‚Ì“Ç‚İ‚İ
-	background_image = LoadGraph("Resource/images/Title.bmp");
+	background_image = LoadGraph("Resource/images/D&D_Title.jpg");
 	menu_image = LoadGraph("Resource/images/menu.bmp");
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
 
@@ -30,7 +30,7 @@ void TitleScene::Initialize()
 	}
 	if (background_image == -1)
 	{
-		throw("Resource/images/Title.bmp‚ª‚ ‚è‚Ü‚¹‚ñ\n");
+		throw("Resource/images/D&D_Title.jpg‚ª‚ ‚è‚Ü‚¹‚ñ\n");
 	}
 	if (menu_image == -1)
 	{

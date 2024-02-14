@@ -14,6 +14,7 @@ private:
 	int menu_image_num[4]; //メニュー画像(分割読み込み用)
 	int cursor_image; //カーソル画像
 	int menu_cursor; //メニューカーソル番号
+
 public:
 	TitleScene();
 	virtual ~TitleScene();

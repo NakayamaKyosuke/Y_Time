@@ -24,6 +24,7 @@
     <ProjectGuid>{f0ad6954-3aed-4d57-96c8-6eb7a46dd877}</ProjectGuid>
     <RootNamespace>GameJamDriveAndAvoid</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>GameJam_DriveAndAvoid</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
