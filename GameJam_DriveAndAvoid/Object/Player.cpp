@@ -34,14 +34,14 @@ void Player::Initialize()
 
 	//音源読み込み
 	sounds = LoadSoundMem("Resource/sound/carcheice.mp3");
-<<<<<<< HEAD
+
 	
-=======
+
 	boost_sound = LoadSoundMem("Resource/sound/seed.wav");
 	boost_sound_two = LoadSoundMem("Resource/sound/invoke.wav");
 	obstruct_sound = LoadSoundMem("Resource/sound/flash.wav");
 
->>>>>>> main
+
 	//エラーチェック
 	if (image == -1)
 	{
