@@ -16,7 +16,7 @@ Item::~Item()
 void Item::Initialize()
 {
 	//どのアイテムか決定
-	item_type = GetRand(1);
+	item_type = GetRand(3);
 
 	//アイテムに応じた画像と効果時間
 	switch (item_type)
@@ -46,6 +46,28 @@ void Item::Initialize()
 		}
 		//効果時間
 		item_span = 300;
+		break;
+	case 2:
+
+		//画像の読み込み（仮画像）
+		image = LoadGraph("Resource/images/supana.png");
+
+		//エラーチェック
+		if (image == -1)
+		{
+			throw("Resource/images/flashbang.jpgがありません\n");
+		}
+		break;
+	case 3:
+
+		//画像の読み込み（仮画像）
+		image = LoadGraph("Resource/images/gasoline.png");
+
+		//エラーチェック
+		if (image == -1)
+		{
+			throw("Resource/images/flashbang.jpgがありません\n");
+		}
 		break;
 	default:
 		throw("未知のアイテムです\n");

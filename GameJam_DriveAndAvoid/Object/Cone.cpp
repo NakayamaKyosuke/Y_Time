@@ -5,12 +5,12 @@
 Cone::Cone() : image(NULL)
 {
 	//画像の読み込み
-	image = LoadGraph("Resource/images/cone.bmp");
+	image = LoadGraph("Resource/images/cone.png");
 
 	//エラーチェック
 	if (image == -1)
 	{
-		throw("Resource/images/cone.bmpがありません\n");
+		throw("Resource/images/cone.がpngありません\n");
 	}
 }
 

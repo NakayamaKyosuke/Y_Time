@@ -46,7 +46,7 @@ void TitleScene::Initialize()
 	}
 	if (cursor_image == -1)
 	{
-		throw("Resource/images/cone.bmp‚ª‚ ‚è‚Ü‚¹‚ñ\n");
+		throw("Resource/images/cone.png‚ª‚ ‚è‚Ü‚¹‚ñ\n");
 	}
 	if (cursor_sound == -1)
 	{
