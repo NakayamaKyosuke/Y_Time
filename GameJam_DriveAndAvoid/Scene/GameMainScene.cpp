@@ -132,7 +132,7 @@ eSceneType GameMainScene::Update()
 			if (IsHitCheak(player, cone))
 			{
 				player->SetActive(false);
-				player->DecreaseHp(-50.0f);
+				player->DecreaseHp(-25.0f);
 				delete cone;
 				cone = nullptr;
 			}
@@ -204,7 +204,7 @@ void GameMainScene::Draw() const
 	float hx = 510.0f;
 	float hy = 430.0f;
 	DrawFormatString(hx, hy, GetColor(0, 0, 0), "PLAYER HP");
-	DrawBoxAA(hx, hy + 20.0f, hx + (player->GetHp() * 100 / 1000), hy + 40.0f, GetColor(255, 0, 0), TRUE);
+	DrawBoxAA(hx, hy + 20.0f, hx + (player->GetHp() * 100 / 500), hy + 40.0f, GetColor(255, 0, 0), TRUE);
 	DrawBoxAA(hx, hy = 20.0f, hx + 100.f, hy + 40.0f, GetColor(0, 0, 0), FALSE);
 }
 
