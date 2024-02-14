@@ -1,5 +1,6 @@
 #include"GameMainScene.h"
 #include"../Object/RankingData.h"
+#include"../Utility/ResourceChecker.h"
 #include"DxLib.h"
 #include<math.h>
 #include"../Object/Oil.h"
@@ -29,31 +30,20 @@ void GameMainScene::Initialize()
 	ReadHighScore();
 
 	//画像の読み込み	
-	back_ground = LoadGraph("Resource/images/back.bmp");
-	barrier_image= LoadGraph("Resource/images/barrier.png");
-	obstruct_image = LoadGraph("Resource/images/flash.jpg");
-	oilsounds = LoadSoundMem("Resource/sound/se_blood03.mp3");
-	hit_SE = LoadSoundMem("Resource/sound/gatigire.mp3");
+	back_ground = Resource::LoadAndCheck("Resource/images/GameMain_Back.jpg");
+	barrier_image= Resource::LoadAndCheck("Resource/images/barrier.png");
+	obstruct_image = Resource::LoadAndCheck("Resource/images/flash.jpg");
+	oilsounds = Resource::LoadAndCheck("Resource/sound/se_blood03.mp3");
+	hit_SE = Resource::LoadAndCheck("Resource/sound/gatigire.mp3");
 
 	int result = LoadDivGraph("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
 	
 	//エラーチェック
-	if (back_ground == 1)
-	{
-		throw("Resource/images/back.bmpがありません\n");
-	}
-	if (barrier_image == 1)
-	{
-		throw("Resource/images/barrier.bmpがありません\n");
-	}
 	if (result == -1)
 	{
 		throw("Resource/images/cars2.bmpがありません\n");
 	}
-	if (obstruct_image == -1)
-	{
-		throw ("Resource/images/flash.jpgがありません\n");
-	}
+
 	//オブジェクトの生成
 	player = new Player;
 	enemy = new Enemy * [10];
@@ -295,7 +285,7 @@ eSceneType GameMainScene::Update()
 		return eSceneType::E_RESULT;
 	}
 
-	return GetNowScene();
+		return GetNowScene();
 
 	}
 
