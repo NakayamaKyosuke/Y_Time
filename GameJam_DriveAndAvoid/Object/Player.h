@@ -48,7 +48,7 @@ public:
 public:
 	void SetActive(bool flg);		//有効フラグ設定
 	void DecreaseHp(float value);	//体力減少処理
-
+	void IncreaseFuel(float value);	//燃料増加処理
 	Vector2D GetLocation()const;	//位置座標取得
 	Vector2D GetBoxSize()const;		//当たり判定の大きさ取得
 	float GetSpeed()const;			//速さ取得処理
