@@ -134,14 +134,14 @@ void Player::Update()
 		}
 	}
 	//I—¹‰æ–Ê
-	while (hp > 0 && fuel > 0)
-	{
-		if (hp <= 0)
-		{
+	//while (hp > 0 && fuel > 0)
+	//{
+	//	if (hp <= 0)
+	//	{
 
-		}
+	//	}
 
-	}
+	//}
 }
 
 void Player::Draw()const
