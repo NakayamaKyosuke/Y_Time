@@ -22,12 +22,12 @@ void TitleScene::Initialize()
 	background_image = LoadGraph("Resource/images/Title.bmp");
 	menu_image = LoadGraph("Resource/images/menu.bmp");
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
+
+	//エラーチェック
 	if (LoadDivGraph("Resource/images/menu.bmp", 4, 1, 4, 195, 40, menu_image_num) == -1)
 	{
 		throw("Resource/images/menu.bmpの読込に失敗しました。\n");
 	}
-
-	//エラーチェック
 	if (background_image == -1)
 	{
 		throw("Resource/images/Title.bmpがありません\n");
