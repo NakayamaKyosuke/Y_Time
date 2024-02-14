@@ -33,6 +33,7 @@ void GameMainScene::Initialize()
 	barrier_image= LoadGraph("Resource/images/barrier.png");
 	obstruct_image = LoadGraph("Resource/images/flash.jpg");
 	oilsounds = LoadSoundMem("Resource/sound/se_blood03.mp3");
+	hit_SE = LoadSoundMem("Resource/sound/gatigire.mp3");
 
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 	
@@ -158,6 +159,7 @@ eSceneType GameMainScene::Update()
 				}
 				else
 				{
+					PlaySoundMem(hit_SE, DX_PLAYTYPE_BACK);
 					player->SetActive(false);
 					player->DecreaseHp(-50.0f);
 					enemy[i]->Finalize();
