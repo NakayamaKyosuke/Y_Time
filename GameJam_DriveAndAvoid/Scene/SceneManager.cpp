@@ -5,6 +5,7 @@
 #include"GameMainScene.h"
 #include"ResultScene.h"
 #include"HelpScene.h"
+#include"../Credit.h"
 #include"RankingDispScene.h"
 #include"RankingInputScene.h"
 
@@ -160,6 +161,8 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 		return new ResultScene;
 	case eSceneType::E_HELP:
 		return new HelpScene;
+	case eSceneType::E_CREDIT:
+		return new CreditScene;
 	case eSceneType::E_RANKING_DISP:
 		return new RankingDispScene;
 	case eSceneType::E_RANKING_INPUT:

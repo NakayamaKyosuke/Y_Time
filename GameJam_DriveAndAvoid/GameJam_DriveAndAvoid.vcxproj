@@ -24,6 +24,7 @@
     <ProjectGuid>{f0ad6954-3aed-4d57-96c8-6eb7a46dd877}</ProjectGuid>
     <RootNamespace>GameJamDriveAndAvoid</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>GameJam_DriveAndAvoid</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -151,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Credit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Barrier.cpp" />
     <ClCompile Include="Object\Cone.cpp" />
@@ -167,8 +169,10 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
+    <ClCompile Include="Utility\ResourceChecker.h.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Credit.h" />
     <ClInclude Include="Object\Barrier.h" />
     <ClInclude Include="Object\Cone.h" />
     <ClInclude Include="Object\Enemy.h" />
@@ -185,6 +189,7 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Utility\inputControl.h" />
+    <ClInclude Include="Utility\ResourceChecker.h" />
     <ClInclude Include="Utility\Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

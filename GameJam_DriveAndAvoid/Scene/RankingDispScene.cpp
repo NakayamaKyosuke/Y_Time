@@ -16,12 +16,12 @@ RankingDispScene::~RankingDispScene()
 void RankingDispScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/Ranking.bmp");
+	background_image = LoadGraph("Resource/images/ranking.png");
 
 	//エラーチェック
 	if (background_image == -1)
 	{
-		throw("Resource/images/Ranking.bmp");
+		throw("Resource/images/ranking.png");
 	}
 
 	//ランキング情報を取得
@@ -33,7 +33,7 @@ void RankingDispScene::Initialize()
 eSceneType RankingDispScene::Update()
 {
 	//Bボタンが押されたら、タイトルに戻る
-	if (InputControl::GetButtonUp(XINPUT_BUTTON_B))
+	if (InputControl::GetButtonUp(XINPUT_BUTTON_A))
 	{
 		return eSceneType::E_TITLE;
 	}
@@ -45,13 +45,16 @@ void RankingDispScene::Draw() const
 {
 	//背景画像の描画
 	DrawGraph(0, 0, background_image, FALSE);
-
+	//文字の大きさ変更
+	SetFontSize(40);
 	//取得したランキングデータを描画する
 	for (int i = 0; i < 5; i++)
 	{
-		DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %6d",
-			ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
+		DrawFormatString(0, 160 + i * 59, 0xff00ff, "%2d %-15s %6d",
+		ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
 	}
+	SetFontSize(16);
+	DrawString(150, 450, "---- Aボタンを押してタイトルへ戻る ----", 0x000000, 0);
 }
 
 //終了時処理
