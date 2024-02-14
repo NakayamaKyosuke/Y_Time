@@ -31,6 +31,7 @@ private:
 
 	int obstruct_time;		//画面阻害の有効時間
 	int obstruct_sound;		//画面阻害のSE
+	
 public:
 	Player();
 	~Player();
@@ -39,6 +40,7 @@ public:
 	void Update();	//更新処理
 	void Draw() const;			//描画処理
 	void Finalize();			//終了時処理
+	
 
 public:
 	void SetActive(bool flg);		//有効フラグ設定

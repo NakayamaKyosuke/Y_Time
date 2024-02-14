@@ -382,6 +382,7 @@ void GameMainScene::Finalize()
 		throw("Resource/dat/result_data.csvが開けません\n");
 	}
 
+
 	//スコアを保存
 	fprintf(fp, "%d,\n",score);
 

@@ -1,5 +1,6 @@
 #include"Player.h"
 #include "../Utility/inputControl.h"
+#include"iostream"
 #include"DxLib.h"
 
 Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f), angle(0.0f), speed(0.0f), old_speed(0.0f), move_speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0), barrier(nullptr), boost_img(NULL),boost_flg(false), boost_time(0), boost_sound(0), boost_sound_two(0), obstruct_time(0), obstruct_sound(0)
@@ -11,6 +12,8 @@ Player::~Player()
 {
 	
 }
+
+
 
 //初期化処理
 void Player::Initialize()
@@ -157,6 +160,15 @@ void Player::Update()
 			move_speed = 1.0f;
 		}
 	}
+	//終了画面
+	while (hp > 0 && fuel > 0)
+	{
+		if (hp <= 0)
+		{
+
+		}
+
+	}
 }
 
 void Player::Draw()const
@@ -195,6 +207,7 @@ void Player::Finalize()
 	DeleteSoundMem(boost_sound_two);
 	DeleteSoundMem(obstruct_sound);
 
+	PlayMovie("RPReplay_Final1707791741.avi", 1, DX_MOVIEPLAYTYPE_BCANCEL);
 	//バリアが生成されていたら、削除する
 	if (barrier != nullptr)
 	{
@@ -358,4 +371,6 @@ void Player::Acceleration()
 		}
 	}
 }
+
+
 

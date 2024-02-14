@@ -34,6 +34,7 @@ public:
 	virtual eSceneType Update() override;
 	virtual void Draw() const override;
 	virtual void Finalize() override;
+	int playmovie();
 
 	virtual eSceneType GetNowScene() const override;
 	
