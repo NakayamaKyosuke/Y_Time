@@ -31,6 +31,9 @@ private:
 
 	int obstruct_time;		//画面阻害の有効時間
 	int obstruct_sound;		//画面阻害のSE
+
+	int HealSE;				//体力回復のSE
+	int GasolineSE;			//燃料回復のSE
 	
 public:
 	Player();
@@ -45,6 +48,7 @@ public:
 public:
 	void SetActive(bool flg);		//有効フラグ設定
 	void DecreaseHp(float value);	//体力減少処理
+
 	Vector2D GetLocation()const;	//位置座標取得
 	Vector2D GetBoxSize()const;		//当たり判定の大きさ取得
 	float GetSpeed()const;			//速さ取得処理
