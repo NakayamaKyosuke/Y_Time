@@ -23,7 +23,6 @@ void Player::Initialize()
 	hp = 500;
 	speed = 3.0f;
 	move_speed = 1.0f;
-	hp = 1000;
 	fuel = 20000;
 	barrier_count = 3;
 
