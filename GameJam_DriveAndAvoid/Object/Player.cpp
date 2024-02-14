@@ -34,9 +34,16 @@ void Player::Initialize()
 
 	//音源読み込み
 	sounds = LoadSoundMem("Resource/sound/carcheice.mp3");
+
+	
+
 	boost_sound = LoadSoundMem("Resource/sound/seed.wav");
 	boost_sound_two = LoadSoundMem("Resource/sound/invoke.wav");
 	obstruct_sound = LoadSoundMem("Resource/sound/flash.wav");
+	HealSE = LoadSoundMem("Resource/sound/HealSE.mp3");
+	GasolineSE = LoadSoundMem("Resource/sound/gasoline.mp3");
+
+
 
 	//エラーチェック
 	if (image == -1)
@@ -63,6 +70,14 @@ void Player::Initialize()
 	if (obstruct_sound == -1)
 	{
 		throw ("Resource/sound/flash.wavがありません\n");
+	}
+	if (HealSE == -1)
+	{
+		throw ("Resource/sound/HealSE.mp3がありません\n");
+	}
+	if (GasolineSE == -1)
+	{
+		throw ("Resource/sound/gasoline.mp3がありません\n");
 	}
 }
 
@@ -190,6 +205,8 @@ void Player::Finalize()
 	DeleteSoundMem(boost_sound);
 	DeleteSoundMem(boost_sound_two);
 	DeleteSoundMem(obstruct_sound);
+	DeleteSoundMem(HealSE);
+	DeleteSoundMem(GasolineSE);
 
 	//バリアが生成されていたら、削除する
 	if (barrier != nullptr)
@@ -208,6 +225,11 @@ void Player::SetActive(bool flg)
 void Player::DecreaseHp(float value)
 {
 	this->hp += value;
+}
+//燃料増加処理
+void Player::IncreaseFuel(float value)
+{
+	this->fuel += value;
 }
 
 //位置情報取得処理
@@ -271,6 +293,12 @@ void Player::SetItemPower(Item* item)
 	case 1:
 		obstruct_time = item->GetItemSpan();
 		PlaySoundMem(obstruct_sound, DX_PLAYTYPE_BACK);
+		break;
+	case 2:
+		PlaySoundMem(HealSE, DX_PLAYTYPE_BACK);
+		break;
+	case 3:
+		PlaySoundMem(GasolineSE, DX_PLAYTYPE_BACK);
 		break;
 	default:
 		break;

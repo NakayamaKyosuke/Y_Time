@@ -33,7 +33,7 @@ void RankingDispScene::Initialize()
 eSceneType RankingDispScene::Update()
 {
 	//Bボタンが押されたら、タイトルに戻る
-	if (InputControl::GetButtonUp(XINPUT_BUTTON_B))
+	if (InputControl::GetButtonUp(XINPUT_BUTTON_A))
 	{
 		return eSceneType::E_TITLE;
 	}
@@ -53,6 +53,8 @@ void RankingDispScene::Draw() const
 		DrawFormatString(0, 160 + i * 59, 0xff00ff, "%2d %-15s %6d",
 		ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
 	}
+	SetFontSize(16);
+	DrawString(150, 450, "---- Aボタンを押してタイトルへ戻る ----", 0x000000, 0);
 }
 
 //終了時処理

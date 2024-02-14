@@ -43,7 +43,7 @@ void TitleScene::Initialize()
 	}
 	if (cursor_image == -1)
 	{
-		throw("Resource/images/cone.bmpがありません\n");
+		throw("Resource/images/cone.pngがありません\n");
 	}
 	if (cursor_sound == -1)
 	{
@@ -105,9 +105,7 @@ eSceneType TitleScene::Update()
 			case 2:
 				return eSceneType::E_HELP;
 			case 3:
-				//クレジット画面
-				/*return eSceneType::E_END;*/
-				break;
+				return eSceneType::E_CREDIT;
 			case 4:
 				return eSceneType::E_END;
 			}

@@ -24,6 +24,7 @@ private:
 
 	Item** item;   //アイテム（ロケットエンジン、画面阻害）
 	int oilsounds;
+	int hit_SE;
 
 	Oil* oil;//オイル
 public:
