@@ -10,6 +10,7 @@ private:
 	int sounds;
 	bool is_active;			//有効状態か？
 	int image;				//画像データ
+	int speedup_image;		//画像データ
 	Vector2D location;		//位置座標
 	Vector2D box_size;		//当たり判定の大きさ
 	float angle;			//角度
@@ -18,12 +19,18 @@ private:
 	float old_speed;		//ブーストに入る前の速さ
 	float hp;				//体力
 	float fuel;				//燃料
+
 	int barrier_count;		//バリアの枚数
 	Barrier* barrier;		//バリア
+
 	bool boost_flg;			//強制加速のフラグ
-	int boost_img;			//強制加速の有効時間
+	int boost_img;			//強制加速の画像
 	int boost_time;			//強制加速の有効時間
+	int boost_sound;		//強制加速のSE1
+	int boost_sound_two;	//強制加速のSE2
+
 	int obstruct_time;		//画面阻害の有効時間
+	int obstruct_sound;		//画面阻害のSE
 public:
 	Player();
 	~Player();
@@ -44,7 +51,8 @@ public:
 	int GetBarrierCount()const;		//バリアの枚数取得
 	bool IsBarrier()const;			//バリア有効か？を取得
 	void SetItemPower(Item* item);  //アイテムによって起こる効果の開始
-	int GetObstructTime()const;			//画面阻害の時間を取得
+	bool GetBoostFlg()const;				//ブースト中か取得
+	int GetObstructTime()const;		//画面阻害の時間を取得
 private:
 	void Movement();				//移動処理
 	void Acceleration();			//加速処理

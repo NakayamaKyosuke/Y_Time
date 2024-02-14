@@ -2,14 +2,14 @@
 #include "../Utility/inputControl.h"
 #include"DxLib.h"
 
-Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f), angle(0.0f), speed(0.0f), old_speed(0.0f), move_speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0), barrier(nullptr), boost_img(NULL),boost_flg(false), boost_time(0.0f), obstruct_time(0.0f)
+Player::Player() :is_active(false), image(NULL), location(0.0f), box_size(0.0f), angle(0.0f), speed(0.0f), old_speed(0.0f), move_speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0), barrier(nullptr), boost_img(NULL),boost_flg(false), boost_time(0), boost_sound(0), boost_sound_two(0), obstruct_time(0), obstruct_sound(0)
 {
 
 }
 
 Player::~Player()
 {
-
+	
 }
 
 //初期化処理
@@ -19,24 +19,37 @@ void Player::Initialize()
 	location = Vector2D(320.0f, 380.0f);
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
+	speed - 3.0f;
+	hp = 500;
 	speed = 3.0f;
 	move_speed = 1.0f;
-	hp = 1000;
 	fuel = 20000;
 	barrier_count = 3;
 
 	//画像の読込
 	image = LoadGraph("Resource/images/car1pol.bmp");
+	speedup_image = LoadGraph("Resource/images/player_speedup.png");
 	boost_img = LoadGraph("Resource/images/seed1.jpg");
 
 
 	//音源読み込み
 	sounds = LoadSoundMem("Resource/sound/carcheice.mp3");
+<<<<<<< HEAD
 	
+=======
+	boost_sound = LoadSoundMem("Resource/sound/seed.wav");
+	boost_sound_two = LoadSoundMem("Resource/sound/invoke.wav");
+	obstruct_sound = LoadSoundMem("Resource/sound/flash.wav");
+
+>>>>>>> main
 	//エラーチェック
 	if (image == -1)
 	{
 		throw ("Resource/images/car1pol.bmpがありません\n");
+	}
+	if (speedup_image == -1)
+	{
+		throw ("Resource/images/player_speedup.pngがありません\n");
 	}
 	if (boost_img == -1)
 	{
@@ -47,7 +60,14 @@ void Player::Initialize()
 	{
 		throw ("Resource/sounds/carcheice.mp3がありません\n");
 	}
-	
+	if (boost_sound == -1)
+	{
+		throw ("Resource/sound/seed.wavがありません\n");
+	}
+	if (obstruct_sound == -1)
+	{
+		throw ("Resource/sound/flash.wavがありません\n");
+	}
 }
 
 void Player::Update()
@@ -61,7 +81,8 @@ void Player::Update()
 	if (boost_flg == true)
 	{
 		move_speed = 10.0f;
-		speed = 10.0f;
+		speed = 12.0f;
+		angle += DX_PI_F / 12.0f;
 	}
 	//画面阻害処理
 	if (obstruct_time > 0)
@@ -140,8 +161,16 @@ void Player::Update()
 
 void Player::Draw()const
 {
-	//プレイヤー画像の描画
-	DrawRotaGraphF(location.x, location.y, 1.0, angle, image, TRUE);
+	if (InputControl::GetButton(XINPUT_BUTTON_X))
+	{
+		//プレイヤー画像の描画
+		DrawRotaGraphF(location.x, location.y, 1.0, angle, speedup_image, TRUE);
+	}
+	else
+	{
+		//プレイヤー画像の描画
+		DrawRotaGraphF(location.x, location.y, 1.0, angle, image, TRUE);
+	}
 
 	//バリアが生成されたいたら、描画を行う
 	if (barrier != nullptr)
@@ -160,6 +189,11 @@ void Player::Finalize()
 {
 	//読み込んだ画像を削除
 	DeleteGraph(image);
+	DeleteGraph(boost_img);
+	DeleteSoundMem(sounds);
+	DeleteSoundMem(boost_sound);
+	DeleteSoundMem(boost_sound_two);
+	DeleteSoundMem(obstruct_sound);
 
 	//バリアが生成されていたら、削除する
 	if (barrier != nullptr)
@@ -235,13 +269,22 @@ void Player::SetItemPower(Item* item)
 		}
 		boost_flg = true;
 		boost_time = item->GetItemSpan();
+		PlaySoundMem(boost_sound, DX_PLAYTYPE_BACK);
+		PlaySoundMem(boost_sound_two, DX_PLAYTYPE_BACK);
 		break;
 	case 1:
 		obstruct_time = item->GetItemSpan();
+		PlaySoundMem(obstruct_sound, DX_PLAYTYPE_BACK);
 		break;
 	default:
 		break;
 	}
+}
+
+//ブースト中か取得
+bool Player::GetBoostFlg()const
+{
+	return boost_flg;
 }
 
 //画面阻害の時間を取得
@@ -254,18 +297,27 @@ int Player::GetObstructTime()const
 void Player::Movement()
 {
 	Vector2D move = Vector2D(0.0f);
-	angle = 0.0f;
+	if (boost_flg == false)
+	{
+		angle = 0.0f;
+    }
 
 	//十字移動処理
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		move += Vector2D(-move_speed, 0.0f);
-		angle = -DX_PI_F / (16 - move_speed*3);
+		if (boost_flg == false)
+		{
+			angle = -DX_PI_F / (16 - move_speed);
+		}
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		move += Vector2D(move_speed, 0.0f);
-		angle = DX_PI_F / (16 - move_speed*3);
+		if (boost_flg == false)
+		{
+			angle = DX_PI_F / (16 - move_speed);
+		}
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{

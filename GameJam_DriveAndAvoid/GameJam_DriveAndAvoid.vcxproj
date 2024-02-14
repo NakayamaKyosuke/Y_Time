@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Barrier.cpp" />
+    <ClCompile Include="Object\Cone.cpp" />
     <ClCompile Include="Object\Enemy.cpp" />
     <ClCompile Include="Object\Item.cpp" />
     <ClCompile Include="Object\Oil.cpp" />
@@ -169,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Barrier.h" />
+    <ClInclude Include="Object\Cone.h" />
     <ClInclude Include="Object\Enemy.h" />
     <ClInclude Include="Object\Item.h" />
     <ClInclude Include="Object\Oil.h" />

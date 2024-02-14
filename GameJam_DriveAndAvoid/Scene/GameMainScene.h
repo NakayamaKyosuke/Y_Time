@@ -6,6 +6,7 @@
 #include "../Object/Item.h"
 
 #include "../Object/Oil.h"
+#include "../Object/Cone.h"
 //動作確認用
 class GameMainScene : public SceneBase
 {
@@ -19,6 +20,8 @@ private:
 	int enemy_count[3]; //通り過ぎた敵カウント
 	Player* player; //プレイヤー
 	Enemy** enemy; //敵
+	Cone* cone;
+
 	Item** item;   //アイテム（ロケットエンジン、画面阻害）
 	int oilsounds;
 
@@ -42,4 +45,5 @@ private:
 	//
 	bool IsHitCheak(Player* p, Oil* o);
 	bool IsHitCheak(Player* p, Item* i);
+	bool IsHitCheak(Player* p, Cone* c);
 };
