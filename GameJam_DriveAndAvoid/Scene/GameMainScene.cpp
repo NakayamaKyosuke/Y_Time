@@ -2,7 +2,9 @@
 #include"../Object/RankingData.h"
 #include"DxLib.h"
 #include<math.h>
+#include"../Object/Oil.h"
 #include "../Object/Cone.h"
+
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
@@ -30,6 +32,7 @@ void GameMainScene::Initialize()
 	back_ground = LoadGraph("Resource/images/back.bmp");
 	barrier_image= LoadGraph("Resource/images/barrier.png");
 	obstruct_image = LoadGraph("Resource/images/flash.jpg");
+	oilsounds = LoadSoundMem("Resource/sound/se_blood03.mp3");
 
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 	
@@ -211,6 +214,7 @@ eSceneType GameMainScene::Update()
 			//“–‚½‚è”»’è‚ÌŠm”F
 			if (IsHitCheak(player, oil))
 			{
+				PlaySoundMem(oilsounds, DX_PLAYTYPE_BACK);
 				player->SetActive(false);
 				oil->Finalize();
 				delete oil;
@@ -255,6 +259,7 @@ eSceneType GameMainScene::Update()
 	return GetNowScene();
 
 	}
+
 //•`‰æˆ—
 void GameMainScene::Draw() const
 {

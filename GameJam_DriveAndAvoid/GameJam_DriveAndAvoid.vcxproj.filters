@@ -131,10 +131,14 @@
     <ClInclude Include="Object\Cone.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Object\Oil.h">
+=======
     <ClInclude Include="Object\Item.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="Oil.h">
+>>>>>>> main
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="EndScene.h">
