@@ -1,6 +1,7 @@
 #include"HelpScene.h"
 #include"../Utility/inputControl.h"
 #include"DxLib.h"
+#include"../Utility/Resource.h"
 
 HelpScene::HelpScene() : background_image(NULL)
 {
@@ -16,13 +17,8 @@ HelpScene::~HelpScene()
 void HelpScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/help.png");
+	background_image = Resource::LoadAndCheck("Resource/images/help.png");
 
-	//エラーチェック
-	if (background_image == -1)
-	{
-		throw("Resource/images/help.bmpがありません\n");
-	}
 }
 
 //更新処理

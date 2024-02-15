@@ -1,5 +1,6 @@
 #include"Credit.h"
 #include"Utility/inputControl.h"
+#include"Utility/Resource.h"
 #include"DxLib.h"
 
 CreditScene::CreditScene() : background_image(NULL)
@@ -16,13 +17,9 @@ CreditScene::~CreditScene()
 void CreditScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/credit.jpg");
+	background_image = Resource::LoadAndCheck("Resource/images/credit.jpg");
 
-	//エラーチェック
-	if (background_image == -1)
-	{
-		throw("Resource/images/credit.jpgがありません\n");
-	}
+	
 }
 
 //更新処理

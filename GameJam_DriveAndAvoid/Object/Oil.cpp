@@ -1,18 +1,13 @@
 #include"Oil.h"
+#include"../Utility/Resource.h"
 #include"DxLib.h"
 
 int sounds;
 Oil::Oil() : image(NULL), speed(0.0f), location(0.0f), box_size(0.0f)
 {
 	//画像読み込み
-	image = LoadGraph("Resource/images/Oil.bmp");
+	image = Resource::LoadAndCheck("Resource/images/Oil.bmp");
 	
-
-	//エラーチェック
-	if (image == 1)
-	{
-		throw("Resource/images/Oil.bmpがありません\n");
-	}
 }
 
 Oil::~Oil()
