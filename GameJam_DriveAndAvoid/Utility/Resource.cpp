@@ -41,6 +41,11 @@ void Resource::LoadAndCheck(const char* _data, int AllNum, int XNum, int YNum, i
 
 void Resource::DrawNumber(Vector2D location,int draw_num, int size, float font_size,int color)
 {
+	//color‚ªA“Ç‚İ‚ñ‚¾‰æ‘œ”ˆÈã‚Ì”š‚Ìê‡‚ÍƒGƒ‰[
+	if (NUMBER_IMAGE_NUM <= color)
+	{
+		throw("”š‰æ‘œ");
+	}
 	int a;
 	int value = draw_num;
 	for (int i = size; i > 0; i--)
@@ -49,9 +54,5 @@ void Resource::DrawNumber(Vector2D location,int draw_num, int size, float font_s
 		value /= 10;
 		//DrawFormatString(x, y + (i * 20), 0x00ff00, "%d", j);
 		DrawRotaGraph(location.x + (i * (font_size*10)), location.y, font_size,0,number_image[color][a], TRUE);
-		if (NUMBER_IMAGE_NUM <= color)
-		{
-			throw("”š‰æ‘œ");
-		}
 	}
 }
