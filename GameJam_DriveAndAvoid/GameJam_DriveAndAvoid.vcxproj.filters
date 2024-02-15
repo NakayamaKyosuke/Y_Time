@@ -39,7 +39,6 @@
     <ClInclude Include="Utility\inputControl.h" />
     <ClInclude Include="Utility\Vector2D.h" />
     <ClInclude Include="Utility\ResourceChecker.h" />
-    <ClInclude Include="ResourceChecker.h" />
     <ClInclude Include="Credit.h" />
   </ItemGroup>
 </Project>
