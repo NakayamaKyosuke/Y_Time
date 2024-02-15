@@ -21,7 +21,7 @@ Cone::~Cone()
 
 void Cone::Initialize()
 {
-	wait = 240;
+	wait = 60;
 	//出現させるX座標パターンを取得
 	float random_x = (float)(GetRand(4) * 105 + 40);
 	//生成位置の設定
@@ -37,7 +37,7 @@ void Cone::Update(float speed)
 	//位置情報に移動量を加算する
 	if (--wait < 0)
 	{
-		location += Vector2D(0.0f, this->speed + speed - 6);
+		location += Vector2D(0.0f, this->speed + speed);
 	}
 }
 

@@ -45,7 +45,6 @@ void GameMainScene::Initialize()
 	//オブジェクトの生成
 	player = new Player;
 	enemy = new Enemy * [10];
-	cone = new Cone;
 	item = new Item * [10];
 
 	//オブジェクトの初期化
@@ -227,7 +226,7 @@ eSceneType GameMainScene::Update()
 
 
 
-		//オイルの更新と当たり判定チェック
+		//オイルの更新
 		if (oil != nullptr)
 		{
 			oil->Update(player->GetSpeed());
@@ -239,9 +238,10 @@ eSceneType GameMainScene::Update()
 				oil = nullptr;
 			}
 		}
+
+		//当たり判定の確認
 		if (oil != nullptr)
 		{
-			//当たり判定の確認
 			if (IsHitCheak(player, oil))
 			{
 				PlaySoundMem(oilsounds, DX_PLAYTYPE_BACK);
@@ -254,29 +254,27 @@ eSceneType GameMainScene::Update()
 
 
 
-		//コーンの更新と当たり判定チェック
-		for (int i = 0; i < 10; i++)
+		//コーンの更新
+		if (cone != nullptr)
 		{
-			if (cone != nullptr)
+			cone->Update(player->GetSpeed());
+
+			//画面外に行ったら、コーンを削除
+			if (cone->GetLocation().y >= 640.0f)
 			{
-				cone->Update(player->GetSpeed());
-
-				//画面外に行ったら、コーンを削除
-				if (cone->GetLocation().y >= 640.0f)
-				{
-					delete cone;
-					cone = nullptr;
-					break;
-				}
-
-				//当たり判定の確認
-				if (IsHitCheak(player, cone))
-				{
-					player->SetActive(false);
-					player->DecreaseHp(-25.0f);
-					delete cone;
-					cone = nullptr;
-				}
+				delete cone;
+				cone = nullptr;
+			}
+		}
+		//当たり判定の確認
+		if (cone != nullptr)
+		{
+			if (IsHitCheak(player, cone))
+			{
+				player->SetActive(false);
+				player->DecreaseHp(-25.0f);
+				delete cone;
+				cone = nullptr;
 			}
 		}
 	}
