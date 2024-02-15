@@ -54,6 +54,7 @@ void CreditScene::Draw() const
 	DrawString(200, 230, "いらすとや", 0x000000, 0);
 	DrawString(230, 280, "photoAC", 0x000000, 0);
 	DrawString(170, 330, "海外系効果音", 0x000000, 0);
+	DrawString(240, 380, "魔王魂", 0x000000, 0);
 	SetFontSize(16);
 	DrawString(150, 450, "---- Bボタンを押してタイトルへ戻る ----", 0x000000, 0);
 }
