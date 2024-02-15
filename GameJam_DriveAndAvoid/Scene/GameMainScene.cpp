@@ -350,7 +350,8 @@ void GameMainScene::Draw() const
 		DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d", enemy_count[i]);
 	}
 	DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
-	DrawFormatString(555, 220, GetColor(255,255,255), "%08d",mileage/10);
+	//DrawFormatString(555, 220, GetColor(255,255,255), "%08d",mileage/10);
+	Resource::DrawNumber(Vector2D(555, 220), mileage / 10, 6,1);
 	DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
 	DrawFormatString(555, 260, GetColor(255,255,255), "%08.1f",player->GetSpeed());
 	DrawFormatString(510, 300, GetColor(0, 0, 0), "残りバリア数");
