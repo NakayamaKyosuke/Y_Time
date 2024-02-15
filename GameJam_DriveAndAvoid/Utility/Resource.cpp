@@ -1,4 +1,4 @@
-#include"ResourceChecker.h"
+#include"Resource.h"
 #include "DxLib.h"
 
 int Resource::LoadAndCheck(const char* _data)

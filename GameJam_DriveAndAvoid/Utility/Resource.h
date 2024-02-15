@@ -1,5 +1,6 @@
 #pragma once
 
+//読込、描画関連のプログラム
 class Resource
 {
 public:

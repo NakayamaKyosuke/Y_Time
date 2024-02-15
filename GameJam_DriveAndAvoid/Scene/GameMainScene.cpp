@@ -1,12 +1,10 @@
 #include"GameMainScene.h"
 #include"../Object/RankingData.h"
-#include"../Utility/ResourceChecker.h"
+#include"../Utility/Resource.h"
 #include"DxLib.h"
 #include<math.h>
 #include"../Object/Oil.h"
 #include "../Object/Cone.h"
-
-
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
 barrier_image(NULL), obstruct_image(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr)
