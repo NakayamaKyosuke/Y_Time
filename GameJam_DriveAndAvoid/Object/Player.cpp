@@ -27,7 +27,7 @@ void Player::Initialize()
 	hp = 500;
 	speed = 3.0f;
 	move_speed = 1.0f;
-	fuel = 20000;
+	fuel = 20;
 	barrier_count = 3;
 
 	//‰æ‘œ‚Ì“Ç
@@ -180,7 +180,6 @@ void Player::Finalize()
 	DeleteSoundMem(boost_sound_two);
 	DeleteSoundMem(obstruct_sound);
 
-	PlayMovie("RPReplay_Final1707791741.avi", 1, DX_MOVIEPLAYTYPE_BCANCEL);
 	//ƒoƒŠƒA‚ª¶¬‚³‚ê‚Ä‚¢‚½‚çAíœ‚·‚é
 	if (barrier != nullptr)
 	{

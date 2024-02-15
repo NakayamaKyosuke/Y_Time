@@ -1,5 +1,6 @@
 #include"GameMainScene.h"
 #include"../Object/RankingData.h"
+#include "../Utility/inputControl.h"
 #include"../Utility/Resource.h"
 #include"DxLib.h"
 #include<math.h>
@@ -7,7 +8,7 @@
 #include "../Object/Cone.h"
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
-barrier_image(NULL), obstruct_image(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr)
+barrier_image(NULL), obstruct_image(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr),movie_play_once(false)
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -273,7 +274,16 @@ eSceneType GameMainScene::Update()
 	//プレイヤーの燃料か体力が0未満なら、リザルトに還移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
-		return eSceneType::E_RESULT;
+		//一回だけ動画再生
+		if (movie_play_once == false)
+		{
+			PlayMovie("RPReplay_Final1707791741.avi", 1, DX_MOVIEPLAYTYPE_BCANCEL);
+			movie_play_once = true;
+		}
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+		{
+			return eSceneType::E_RESULT;
+		}
 	}
 
 		return GetNowScene();
@@ -329,7 +339,7 @@ void GameMainScene::Draw() const
 	player->Draw();
 
 	//UIの描画
-	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
+	DrawBox(500, 0, 640, 480, GetColor(153, 0, 0), TRUE);
 	SetFontSize(16);
 	DrawFormatString(510, 20, GetColor(0, 0, 0), "ハイスコア");
 	DrawFormatString(510, 40, GetColor(255, 255, 255), "%08d", high_score);

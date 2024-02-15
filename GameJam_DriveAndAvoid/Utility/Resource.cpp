@@ -1,6 +1,15 @@
 #include"Resource.h"
 #include "DxLib.h"
 
+int Resource::number_imaga[3] = {};
+
+void Resource::Initialize()
+{
+	number_imaga[0] = LoadAndCheck("Resource/images/D&D_Number.png");
+	number_imaga[1] = LoadAndCheck("Resource/images/D&D_Number_Red.png");
+	number_imaga[2] = LoadAndCheck("Resource/images/D&D_Number_White.png");
+}
+
 int Resource::LoadAndCheck(const char* _data)
 {
 	int image = LoadGraph(_data);
