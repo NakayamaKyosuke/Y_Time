@@ -22,7 +22,7 @@ ResultScene::~ResultScene()
 void ResultScene::Initialize()
 {
 	//‰æ‘œ‚Ì“Ç‚İ‚İ
-	back_ground = Resource::LoadAndCheck("Resource/images/back.bmp");
+	back_ground = Resource::LoadAndCheck("Resource/images/kaeru.png");
 	Resource::LoadAndCheck("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
 
 	//ƒQ[ƒ€Œ‹‰Ê‚Ì“Ç‚İ‚İ
