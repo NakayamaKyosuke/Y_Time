@@ -44,16 +44,16 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	//背景画像の描画
-	DrawGraph(0, 0, back_ground, TRUE);
+	DrawGraph(-200, -100, back_ground, TRUE);
 
 	//スコア等表示領域
-	DrawBox(150, 150, 490, 330, GetColor(0, 153, 0), TRUE);
+	DrawBox(150, 150, 490, 330, GetColor(153, 0, 0), TRUE);
 	DrawBox(150, 150, 490, 330, GetColor(0, 0, 0), FALSE);
 
-	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
+	//DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
 
 	SetFontSize(20);
-	DrawString(220, 170, "ゲームオーバー", GetColor(204, 0, 0));
+	DrawString(220, 170, "ゲームオーバー", GetColor(0, 204, 0));
 	SetFontSize(16);
 	DrawString(180, 200, "走行距離        ", GetColor(0, 0, 0));
 	for (int i = 0; i < 3; i++)
