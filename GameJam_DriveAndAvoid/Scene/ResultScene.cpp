@@ -4,13 +4,15 @@
 #include"../Utility/Resource.h"
 #include "DxLib.h"
 
-ResultScene::ResultScene() : back_ground(NULL), score(0)
+ResultScene::ResultScene() : back_ground(NULL), score(0),mileage(0)
 {
 	for (int i = 0; i < 3; i++)
 	{
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
 	}
+
+	
 }
 
 ResultScene::~ResultScene()
@@ -55,15 +57,15 @@ void ResultScene::Draw() const
 	SetFontSize(20);
 	DrawString(220, 170, "ゲームオーバー", GetColor(204, 0, 0));
 	SetFontSize(16);
-	DrawString(180, 200, "走行距離        ", GetColor(0, 0, 0));
+	DrawFormatString(183, 200, 0xFFFFFF, "走行距離       %6dm= %6d", mileage,mileage/10);
 	for (int i = 0; i < 3; i++)
 	{
 		DrawRotaGraph(230, 230 + (i * 20), 0.3f, DX_PI_F / 2, enemy_image[i], TRUE);
 		DrawFormatString(260, 222 + (i * 21), GetColor(255, 255, 255), "%6d x %4d=%6d",
-			enemy_count[i], (i + 1) * 50, (i + 1) * 50 * enemy_count[i]);
+			enemy_count[i], (i + 1) * 300, (i + 1) * 300 * enemy_count[i]);
 	}
-	DrawString(180, 290, "スコア", GetColor(0, 0, 0));
-	DrawFormatString(180, 290, 0xFFFFFF, "      =%6d", score);
+	DrawString(310, 290, "スコア", GetColor(0, 0, 0));
+	DrawFormatString(322, 290, 0xFFFFFF, "      =%6d", score);
 }
 
 //終了時処理
@@ -98,6 +100,8 @@ void ResultScene::ReadResultData()
 
 	//結果を読み込む
 	fscanf_s(fp, "%6d,\n", &score);
+
+	fscanf_s(fp, "%6d,\n", &mileage);
 
 	//避けた数と得点を取得
 	for (int i = 0; i < 3; i++)
