@@ -45,7 +45,7 @@ void HelpScene::Draw() const
 
 	//ゲーム説明
 	SetFontSize(16);
-	DrawString(150, 450, "---- Bボタンを押してタイトルへ戻る ----",0xffffff, 0);
+	DrawString(130, 460, "Aボタンを押してタイトルへ戻る",0xff0000, 0);
 }
 
 //終了時処理
