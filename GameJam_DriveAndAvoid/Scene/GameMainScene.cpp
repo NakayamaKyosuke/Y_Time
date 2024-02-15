@@ -346,7 +346,7 @@ void GameMainScene::Draw() const
 		DrawFormatString(510, 190, GetColor(0, 0, 0), "走行距離");
 		Resource::DrawNumber(Vector2D(520, 220), mileage / 10, 6, 1, 2);
 		DrawFormatString(510, 250, GetColor(0, 0, 0), "スピード");
-		Resource::DrawNumber(Vector2D(540, 280), player->GetSpeed(), 2, 1, 3);
+		Resource::DrawNumber(Vector2D(540, 280), player->GetSpeed(), 2, 1, 2);
 		DrawFormatString(510, 300, GetColor(0, 0, 0), "残りバリア数");
 		//バリア枚数の描画
 		for (int i = 0; i < player->GetBarrierCount(); i++)
