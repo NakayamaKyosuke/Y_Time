@@ -1,13 +1,14 @@
 #include"Resource.h"
 #include "DxLib.h"
 
-int Resource::number_image[3][10] = {};
+int Resource::number_image[NUMBER_IMAGE_NUM][10] = {};
 
 void Resource::Initialize()
 {
-	LoadAndCheck("Resource/images/D&D_Number.png", 10, 10, 1, 20, 30, number_image[0]);
-	LoadAndCheck("Resource/images/D&D_Number_Red.png", 10, 10, 1, 20, 30, number_image[1]);
-	LoadAndCheck("Resource/images/D&D_Number_White.png", 10, 10, 1, 20, 30, number_image[2]);
+	for (int i = 0; i < NUMBER_IMAGE_NUM; i++)
+	{
+		LoadAndCheck(number_image_data[i], 10, 10, 1, 20, 30, number_image[i]);
+	}
 }
 
 int Resource::LoadAndCheck(const char* _data)
@@ -48,5 +49,9 @@ void Resource::DrawNumber(Vector2D location,int draw_num, int size, float font_s
 		value /= 10;
 		//DrawFormatString(x, y + (i * 20), 0x00ff00, "%d", j);
 		DrawRotaGraph(location.x + (i * (font_size*10)), location.y, font_size,0,number_image[color][a], TRUE);
+		if (NUMBER_IMAGE_NUM <= color)
+		{
+			throw("”Žš‰æ‘œ");
+		}
 	}
 }
