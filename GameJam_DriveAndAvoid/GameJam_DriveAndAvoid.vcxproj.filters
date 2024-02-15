@@ -18,7 +18,7 @@
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
     <ClCompile Include="Credit.cpp" />
-    <ClCompile Include="Utility\ResourceChecker.h.cpp" />
+    <ClCompile Include="Utility\Resource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Barrier.h" />
@@ -38,8 +38,7 @@
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Utility\inputControl.h" />
     <ClInclude Include="Utility\Vector2D.h" />
-    <ClInclude Include="Utility\ResourceChecker.h" />
-    <ClInclude Include="ResourceChecker.h" />
+    <ClInclude Include="Utility\Resource.h" />
     <ClInclude Include="Credit.h" />
   </ItemGroup>
 </Project>

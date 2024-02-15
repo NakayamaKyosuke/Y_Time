@@ -1,5 +1,6 @@
 #include"SceneManager.h"
 #include"../Utility/inputControl.h"
+#include"../Utility/Resource.h"
 #include"DxLib.h"
 #include"TitleScene.h"
 #include"GameMainScene.h"
@@ -42,6 +43,9 @@ void SceneManager::Initialize()
 	{
 		throw("描画先の指定ができませんでした\n");
 	}
+
+	//リソース系機能の初期化処理
+	Resource::Initialize();
 
 	//タイトルシーンから始める
 	ChangeScene(eSceneType::E_TITLE);

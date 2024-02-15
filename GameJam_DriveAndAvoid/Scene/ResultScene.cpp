@@ -1,6 +1,7 @@
 #include "ResultScene.h"
 #include "../Object/RankingData.h"
 #include "../Utility/inputControl.h"
+#include"../Utility/Resource.h"
 #include "DxLib.h"
 
 ResultScene::ResultScene() : back_ground(NULL), score(0)
@@ -21,19 +22,8 @@ ResultScene::~ResultScene()
 void ResultScene::Initialize()
 {
 	//画像の読み込み
-	back_ground = LoadGraph("Resource/images/back.bmp");
-	int result = LoadDivGraph("Resource/images/cars2.bmp", 3, 3, 1, 63, 120, enemy_image);
-
-
-	//エラーチェック
-	if (back_ground == -1)
-	{
-		throw("Resource/images/back.bmpがありません\n");
-	}
-	if (result == -1)
-	{
-		throw("Resource/images/cars2.bmpがありません\n");
-	}
+	back_ground = Resource::LoadAndCheck("Resource/images/back.bmp");
+	Resource::LoadAndCheck("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
 
 	//ゲーム結果の読み込み
 	ReadResultData();
@@ -43,7 +33,7 @@ void ResultScene::Initialize()
 eSceneType ResultScene::Update()
 {
 	//Bボタンでランキングに遷移する
-	if (InputControl::GetButtonUp(XINPUT_BUTTON_B))
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
 		return eSceneType::E_RANKING_INPUT;
 	}

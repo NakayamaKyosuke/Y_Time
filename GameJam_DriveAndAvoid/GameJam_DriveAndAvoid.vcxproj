@@ -169,7 +169,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
-    <ClCompile Include="Utility\ResourceChecker.h.cpp" />
+    <ClCompile Include="Utility\Resource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Credit.h" />
@@ -189,7 +189,7 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Utility\inputControl.h" />
-    <ClInclude Include="Utility\ResourceChecker.h" />
+    <ClInclude Include="Utility\Resource.h" />
     <ClInclude Include="Utility\Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

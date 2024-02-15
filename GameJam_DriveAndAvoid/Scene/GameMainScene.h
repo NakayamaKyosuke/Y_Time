@@ -27,6 +27,7 @@ private:
 	int hit_SE;
 
 	Oil* oil;//ƒIƒCƒ‹
+	bool movie_play_once;	//“®‰æ‚ğˆê‰ñ‚¾‚¯Ä¶
 public:
 	GameMainScene();
 	virtual~GameMainScene();
