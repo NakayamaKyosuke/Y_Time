@@ -180,7 +180,7 @@ eSceneType GameMainScene::Update()
 				if (IsHitCheak(player, item[i]))
 				{
 					if (item[i]->GetType() == 2) {
-						if (player->GetHp() <= 500) {
+						if (player->GetHp() < 500) {
 							player->SetItemPower(item[i]);
 							player->DecreaseHp(50.0f);
 							item[i]->Finalize();
@@ -197,7 +197,7 @@ eSceneType GameMainScene::Update()
 						}
 					}
 					if (item[i]->GetType() == 3) {
-						if (player->GetFuel() <= 20000) {
+						if (player->GetFuel() <= 10000) {
 							player->SetItemPower(item[i]);
 							player->IncreaseFuel(2000.0f);
 							item[i]->Finalize();
@@ -358,7 +358,7 @@ void GameMainScene::Draw() const
 		float fx = 510.0f;
 		float fy = 390.0f;
 		DrawFormatString(fx, fy, GetColor(0, 0, 0), "FUEL METER");
-		DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
+		DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 10000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
 		DrawBoxAA(fx, fy + 20.0f, fx + 100.f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
 
 		//ëÃóÕÉQÅ[ÉWÇÃï`âÊ
