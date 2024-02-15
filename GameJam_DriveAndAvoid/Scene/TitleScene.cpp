@@ -1,6 +1,6 @@
 #include"TitleScene.h"
 #include"../Utility/inputControl.h"
-#include"../Utility/ResourceChecker.h"
+#include"../Utility/Resource.h"
 #include"DxLib.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
