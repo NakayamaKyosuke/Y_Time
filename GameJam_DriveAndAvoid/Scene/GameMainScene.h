@@ -26,6 +26,8 @@ private:
 	int oilsounds;
 	int hit_SE;
 
+	int BGM;
+
 	Oil* oil;//ƒIƒCƒ‹
 public:
 	GameMainScene();

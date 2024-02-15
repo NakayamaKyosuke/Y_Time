@@ -34,6 +34,7 @@ void GameMainScene::Initialize()
 	obstruct_image = LoadGraph("Resource/images/flash.jpg");
 	oilsounds = LoadSoundMem("Resource/sound/se_blood03.mp3");
 	hit_SE = LoadSoundMem("Resource/sound/gatigire.mp3");
+	BGM = LoadSoundMem("Resource/sound/GameMainBGM.mp3");
 
 	int result = LoadDivGraph("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
 	
@@ -72,11 +73,14 @@ void GameMainScene::Initialize()
 	{
 		item[i] = nullptr;
 	}
+
+	PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
 }
 
 //更新処理
 eSceneType GameMainScene::Update()
 {
+
 	//プレイヤーの更新
 	player->Update();
 
@@ -292,6 +296,7 @@ eSceneType GameMainScene::Update()
 	//プレイヤーの燃料か体力が0未満なら、リザルトに還移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
+		StopSoundMem(BGM);
 		return eSceneType::E_RESULT;
 	}
 

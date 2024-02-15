@@ -22,7 +22,7 @@ void ResultScene::Initialize()
 {
 	//画像の読み込み
 	back_ground = LoadGraph("Resource/images/back.bmp");
-	int result = LoadDivGraph("Resource/images/cars2.bmp", 3, 3, 1, 63, 120, enemy_image);
+	int result = LoadDivGraph("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
 
 
 	//エラーチェック
