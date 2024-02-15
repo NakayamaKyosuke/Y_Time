@@ -1,13 +1,13 @@
 #include"Resource.h"
 #include "DxLib.h"
 
-int Resource::number_imaga[3] = {};
+int Resource::number_image[3][10] = {};
 
 void Resource::Initialize()
 {
-	number_imaga[0] = LoadAndCheck("Resource/images/D&D_Number.png");
-	number_imaga[1] = LoadAndCheck("Resource/images/D&D_Number_Red.png");
-	number_imaga[2] = LoadAndCheck("Resource/images/D&D_Number_White.png");
+	LoadAndCheck("Resource/images/D&D_Number.png", 10, 10, 1, 20, 30, number_image[0]);
+	LoadAndCheck("Resource/images/D&D_Number_Red.png", 10, 10, 1, 20, 30, number_image[1]);
+	LoadAndCheck("Resource/images/D&D_Number_White.png", 10, 10, 1, 20, 30, number_image[2]);
 }
 
 int Resource::LoadAndCheck(const char* _data)
@@ -35,5 +35,18 @@ void Resource::LoadAndCheck(const char* _data, int AllNum, int XNum, int YNum, i
 	if (LoadDivGraph(_data, AllNum, XNum, YNum, XSize, YSize, HandleArray) == -1)
 	{
 		throw(_data);
+	}
+}
+
+void Resource::DrawNumber(Vector2D location,int draw_num, int size, int color)
+{
+	int a;
+	int value = draw_num;
+	for (int i = size; i >= 0; i--)
+	{
+		a = value % 10;
+		value /= 10;
+		//DrawFormatString(x, y + (i * 20), 0x00ff00, "%d", j);
+		DrawGraph(location.x + (i * 12), location.y, number_image[color][a], TRUE);
 	}
 }
