@@ -35,14 +35,7 @@ void GameMainScene::Initialize()
 	obstruct_image = Resource::LoadAndCheck("Resource/images/flash.jpg");
 	oilsounds = Resource::LoadAndCheck("Resource/sound/se_blood03.mp3");
 	hit_SE = Resource::LoadAndCheck("Resource/sound/gatigire.mp3");
-
-	int result = LoadDivGraph("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
-	
-	//エラーチェック
-	if (result == -1)
-	{
-		throw("Resource/images/cars2.bmpがありません\n");
-	}
+	Resource::LoadAndCheck("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
 
 	//オブジェクトの生成
 	player = new Player;

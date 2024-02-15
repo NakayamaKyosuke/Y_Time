@@ -169,7 +169,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
-    <ClCompile Include="Utility\ResourceChecker.h.cpp" />
+    <ClCompile Include="Utility\ResourceChecker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Credit.h" />

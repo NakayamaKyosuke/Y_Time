@@ -1,19 +1,29 @@
 #include"ResourceChecker.h"
 #include "DxLib.h"
 
-//画像、音声の読込＆エラーチェック
 int Resource::LoadAndCheck(const char* _data)
 {
-	int resource;
-	if (LoadGraph(_data) != -1)
+	int image = LoadGraph(_data);
+	int sound = LoadSoundMem(_data);
+	//-1が出力されなかった方を返す
+	if (image != -1)
 	{
-		return LoadGraph(_data);
+		return image;
 	}
-	else if (LoadSoundMem(_data) != -1)
+	else if (sound != -1)
 	{
-		return LoadSoundMem(_data);
+		return sound;
 	}
+	//どちらも-1ならエラーを返す
 	else
+	{
+		throw(_data);
+	}
+}
+
+void Resource::LoadAndCheck(const char* _data, int AllNum, int XNum, int YNum, int XSize, int YSize, int* HandleArray)
+{
+	if (LoadDivGraph(_data, AllNum, XNum, YNum, XSize, YSize, HandleArray) == -1)
 	{
 		throw(_data);
 	}
