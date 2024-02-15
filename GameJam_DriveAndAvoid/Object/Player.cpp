@@ -160,15 +160,6 @@ void Player::Update()
 			move_speed = 1.0f;
 		}
 	}
-	//I—¹‰æ–Ê
-	while (hp > 0 && fuel > 0)
-	{
-		if (hp <= 0)
-		{
-
-		}
-
-	}
 }
 
 void Player::Draw()const
