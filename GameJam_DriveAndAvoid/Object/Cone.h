@@ -5,7 +5,10 @@
 class Cone {
 private:
 	int wait;	//Œx•\¦ŠÔ
+	int draw_timer;	//Œx•\¦“_–Å—p
 	int image;
+	int danger_image;	//Œx‰æ‘œ
+	int danger_se;		//ŒxSE
 	float speed;
 	Vector2D location;
 	Vector2D box_size;

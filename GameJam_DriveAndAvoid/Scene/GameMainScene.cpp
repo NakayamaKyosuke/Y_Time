@@ -309,15 +309,6 @@ void GameMainScene::Draw() const
 			}
 		}
 
-		//オイルの描画
-		/*for (int i = 0; i < 10; i++)
-		{
-			if (oil[i] != nullptr)
-			{
-				oil[i]->Draw();
-			}
-		}*/
-
 		//アイテムの描画
 		for (int i = 0; i < 10; i++)
 		{
@@ -337,7 +328,6 @@ void GameMainScene::Draw() const
 			cone->Draw();
 		}
 
-
 		//プレイヤーの描画
 		player->Draw();
 
@@ -352,11 +342,10 @@ void GameMainScene::Draw() const
 			DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE, FALSE);
 			DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d", enemy_count[i]);
 		}
-		DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
-		//DrawFormatString(555, 220, GetColor(255,255,255), "%08d",mileage/10);
-		Resource::DrawNumber(Vector2D(555, 220), mileage / 10, 6, 1);
-		DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
-		DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f", player->GetSpeed());
+		DrawFormatString(510, 190, GetColor(0, 0, 0), "走行距離");
+		Resource::DrawNumber(Vector2D(520, 210), mileage / 10, 6, 2);
+		DrawFormatString(510, 250, GetColor(0, 0, 0), "スピード");
+		Resource::DrawNumber(Vector2D(540, 270), player->GetSpeed(), 2, 2);
 		DrawFormatString(510, 300, GetColor(0, 0, 0), "残りバリア数");
 		//バリア枚数の描画
 		for (int i = 0; i < player->GetBarrierCount(); i++)

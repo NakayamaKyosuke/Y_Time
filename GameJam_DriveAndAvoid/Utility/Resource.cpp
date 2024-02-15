@@ -42,7 +42,7 @@ void Resource::DrawNumber(Vector2D location,int draw_num, int size, int color)
 {
 	int a;
 	int value = draw_num;
-	for (int i = size; i >= 0; i--)
+	for (int i = size; i > 0; i--)
 	{
 		a = value % 10;
 		value /= 10;
