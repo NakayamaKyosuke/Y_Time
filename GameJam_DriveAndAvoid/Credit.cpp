@@ -28,8 +28,8 @@ void CreditScene::Initialize()
 //更新処理
 eSceneType CreditScene::Update()
 {
-	//Bボタンが押されたら、タイトルに戻る
-	if (InputControl::GetButtonUp(XINPUT_BUTTON_B))
+	//Aボタンが押されたら、タイトルに戻る
+	if (InputControl::GetButtonUp(XINPUT_BUTTON_A))
 	{
 		return eSceneType::E_TITLE;
 	}
@@ -55,7 +55,7 @@ void CreditScene::Draw() const
 	DrawString(230, 280, "photoAC", 0x000000, 0);
 	DrawString(170, 330, "海外系効果音", 0x000000, 0);
 	SetFontSize(16);
-	DrawString(150, 450, "---- Bボタンを押してタイトルへ戻る ----", 0x000000, 0);
+	DrawString(150, 450, "---- Aボタンを押してタイトルへ戻る ----", 0x000000, 0);
 }
 
 //終了時処理
