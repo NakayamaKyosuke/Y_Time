@@ -291,13 +291,10 @@ eSceneType GameMainScene::Update()
 		}
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 		{
+			StopSoundMem(BGM);
 			return eSceneType::E_RESULT;
 		}
 	}
-		StopSoundMem(BGM);
-		return eSceneType::E_RESULT;
-	}
-
 		return GetNowScene();
 
 	}
