@@ -31,6 +31,9 @@ private:
 
 	int obstruct_time;		//‰æ–Ê‘jŠQ‚Ì—LŒøŠÔ
 	int obstruct_sound;		//‰æ–Ê‘jŠQ‚ÌSE
+
+	int HealSE;				//‘Ì—Í‰ñ•œ‚ÌSE
+	int GasolineSE;			//”R—¿‰ñ•œ‚ÌSE
 	
 public:
 	Player();
@@ -45,6 +48,7 @@ public:
 public:
 	void SetActive(bool flg);		//—LŒøƒtƒ‰ƒOİ’è
 	void DecreaseHp(float value);	//‘Ì—ÍŒ¸­ˆ—
+	void IncreaseFuel(float value);	//”R—¿‘‰Áˆ—
 	Vector2D GetLocation()const;	//ˆÊ’uÀ•Wæ“¾
 	Vector2D GetBoxSize()const;		//“–‚½‚è”»’è‚Ì‘å‚«‚³æ“¾
 	float GetSpeed()const;			//‘¬‚³æ“¾ˆ—
