@@ -1,13 +1,13 @@
 #include"Resource.h"
 #include "DxLib.h"
 
-int Resource::number_imaga[3] = {};
+int Resource::number_imaga[3][10] = {};
 
 void Resource::Initialize()
 {
-	LoadAndCheck("Resource/images/D&D_Number.png",10,10,1,20,30, number_imaga[0]);
-	number_imaga[1] = LoadAndCheck("Resource/images/D&D_Number_Red.png");
-	number_imaga[2] = LoadAndCheck("Resource/images/D&D_Number_White.png");
+	LoadAndCheck("Resource/images/D&D_Number.png", 10, 10, 1, 20, 30, number_imaga[0]);
+	LoadAndCheck("Resource/images/D&D_Number_Red.png", 10, 10, 1, 20, 30, number_imaga[1]);
+	LoadAndCheck("Resource/images/D&D_Number_White.png", 10, 10, 1, 20, 30, number_imaga[2]);
 }
 
 int Resource::LoadAndCheck(const char* _data)
@@ -38,7 +38,20 @@ void Resource::LoadAndCheck(const char* _data, int AllNum, int XNum, int YNum, i
 	}
 }
 
-void Resource::DrawNumber(int draw_num, int color)
+void Resource::DrawNumber(Vector2D location,int draw_num, int color)
 {
+	switch (color)
+	{
+	case 0:
+		
+		break;
+	case 1:
 
+		break;
+	case 2:
+
+		break;
+	default:
+		break;
+	}
 }
