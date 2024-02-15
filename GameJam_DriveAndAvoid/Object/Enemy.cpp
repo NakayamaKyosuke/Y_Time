@@ -39,8 +39,17 @@ void Enemy::Initialize()
 
 void Enemy::Update(float speed)
 {
-	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ð‰ÁŽZ‚·‚é
-	location += Vector2D(0.0f, this->speed + speed - 6);
+	//”š”­‚µ‚Ä‚¢‚éê‡ƒvƒŒƒCƒ„[‚Ì‘¬“x‚ÉŠÖŒW‚È‚­—Ž‚¿‚Ä‚¢‚­
+	if (death_flg == false)
+	{
+		//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ð‰ÁŽZ‚·‚é
+		location += Vector2D(0.0f, this->speed + speed - 6);
+	}
+	else
+	{
+		//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ð‰ÁŽZ‚·‚é
+		location += Vector2D(0.0f, this->speed + speed);
+	}
 }
 
 void Enemy::Draw()const

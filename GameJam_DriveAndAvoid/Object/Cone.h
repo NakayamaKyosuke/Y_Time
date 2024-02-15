@@ -4,6 +4,7 @@
 
 class Cone {
 private:
+	int wait;	//Œx•\¦ŠÔ
 	int image;
 	float speed;
 	Vector2D location;

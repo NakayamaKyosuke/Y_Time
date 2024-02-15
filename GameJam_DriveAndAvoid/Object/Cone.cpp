@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include "Enemy.h"
 
-Cone::Cone() : image(NULL)
+Cone::Cone() : wait(0), image(NULL)
 {
 	//画像の読み込み
 	image = LoadGraph("Resource/images/cone.png");
@@ -21,6 +21,7 @@ Cone::~Cone()
 
 void Cone::Initialize()
 {
+	wait = 240;
 	//出現させるX座標パターンを取得
 	float random_x = (float)(GetRand(4) * 105 + 40);
 	//生成位置の設定
@@ -34,12 +35,22 @@ void Cone::Initialize()
 void Cone::Update(float speed)
 {
 	//位置情報に移動量を加算する
-	location += Vector2D(0.0f, this->speed + speed - 6);
+	if (--wait < 0)
+	{
+		location += Vector2D(0.0f, this->speed + speed - 6);
+	}
 }
 
 void Cone::Draw()const
 {
-	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	if (wait > 0)
+	{
+		DrawRotaGraphF(location.x, 0, 1.0, 0.0, image, TRUE);
+	}
+	else
+	{
+		DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	}
 }
 
 //位置情報を取得
