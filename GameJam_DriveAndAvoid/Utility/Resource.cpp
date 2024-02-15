@@ -38,7 +38,7 @@ void Resource::LoadAndCheck(const char* _data, int AllNum, int XNum, int YNum, i
 	}
 }
 
-void Resource::DrawNumber(Vector2D location,int draw_num, int size, int color)
+void Resource::DrawNumber(Vector2D location,int draw_num, int size, float font_size,int color)
 {
 	int a;
 	int value = draw_num;
@@ -47,6 +47,6 @@ void Resource::DrawNumber(Vector2D location,int draw_num, int size, int color)
 		a = value % 10;
 		value /= 10;
 		//DrawFormatString(x, y + (i * 20), 0x00ff00, "%d", j);
-		DrawGraph(location.x + (i * 12), location.y, number_image[color][a], TRUE);
+		DrawRotaGraph(location.x + (i * (font_size*10)), location.y, font_size,0,number_image[color][a], TRUE);
 	}
 }
