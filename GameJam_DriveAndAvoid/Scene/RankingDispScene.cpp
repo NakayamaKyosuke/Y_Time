@@ -1,5 +1,6 @@
 #include"RankingDispScene.h"
 #include"../Utility/inputControl.h"
+#include"../Utility/Resource.h"
 #include"DxLib.h"
 
 RankingDispScene::RankingDispScene() : background_image(NULL), ranking(nullptr)
@@ -16,13 +17,7 @@ RankingDispScene::~RankingDispScene()
 void RankingDispScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/ranking.png");
-
-	//エラーチェック
-	if (background_image == -1)
-	{
-		throw("Resource/images/ranking.png");
-	}
+	background_image = Resource::LoadAndCheck("Resource/images/ranking.png");
 
 	//ランキング情報を取得
 	ranking = new RankingData;

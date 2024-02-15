@@ -41,11 +41,10 @@ void GameMainScene::Initialize()
 	oilsounds = Resource::LoadAndCheck("Resource/sound/se_blood03.mp3");
 	hit_SE = Resource::LoadAndCheck("Resource/sound/gatigire.mp3");
 	Resource::LoadAndCheck("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
-
+	MovieGraphHandle = Resource::LoadAndCheck("RPReplay_Final1707791741.avi");
 	//オブジェクトの生成
 	player = new Player;
 	enemy = new Enemy * [10];
-	cone = new Cone;
 	item = new Item * [10];
 
 	//オブジェクトの初期化
@@ -67,169 +66,167 @@ void GameMainScene::Initialize()
 //更新処理
 eSceneType GameMainScene::Update()
 {
-
-	//プレイヤーの更新
-	player->Update();
-
-	//移動距離の更新
-	mileage += (int)player->GetSpeed() + 5;
-
-	//敵生成処理
-	if (mileage / 20 % 100 == 0)
+	//プレイヤーの燃料か体力が0未満なら、ゲームオーバー動画を再生する
+	if (player->GetFuel() > 0.0f && player->GetHp() > 0.0f)
 	{
-		for (int i = 0; i < 10; i++)
+		//プレイヤーの更新
+		player->Update();
+
+		//移動距離の更新
+		mileage += (int)player->GetSpeed() + 5;
+
+		//敵生成処理
+		if (mileage / 20 % 100 == 0)
 		{
-			if (enemy[i] == nullptr)
+			for (int i = 0; i < 10; i++)
 			{
-				int type = GetRand(3) % 3;
-				enemy[i] = new Enemy(type, enemy_image[type]);
-				enemy[i]->Initialize();
-				break;
+				if (enemy[i] == nullptr)
+				{
+					int type = GetRand(3) % 3;
+					enemy[i] = new Enemy(type, enemy_image[type]);
+					enemy[i]->Initialize();
+					break;
+				}
 			}
 		}
-	}
-	//敵生成処理
-	if (mileage / 20 % 250 == 0)
-	{
-		//アイテム生成
-		for (int i = 0; i < 10; i++)
+		//アイテム生成処理
+		if (mileage / 20 % 125== 0)
 		{
-			if (item[i] == nullptr)
+			//アイテム生成
+			for (int i = 0; i < 10; i++)
 			{
-				item[i] = new Item();
-				item[i]->Initialize();
-				break;
+				if (item[i] == nullptr)
+				{
+					item[i] = new Item();
+					item[i]->Initialize();
+					break;
+				}
 			}
 		}
-	}
-	//オイル生成処理
-	if (mileage / 10 % 200 == 0)
-	{
-		//オイル生成
-		for (int i = 0; i < 10; i++)
+		//オイル生成処理
+		if (mileage / 10 % 200 == 0)
 		{
 			if (oil == nullptr)
 			{
 				oil = new Oil();
 				oil->Initialize();
-				break;
 			}
 		}
-	}
 
-	if (mileage / 20 % 100 == 0) {
-		cone = new Cone;
-		cone->Initialize();
-	}
-
-	//敵の更新と当たり判定チェック
-	for (int i = 0; i < 10; i++)
-	{
-		if (enemy[i] != nullptr)
-		{
-			enemy[i]->Update(player->GetSpeed());
-
-			//画面外に行ったら、敵を削除してスコア加算
-			if (enemy[i]->GetLocation().y >= 640.0f)
+		if (mileage / 20 % 100 == 0) {
+			if (cone == nullptr)
 			{
-				enemy_count[enemy[i]->GetType()]++;
-				enemy[i]->Finalize();
-				delete enemy[i];
-				enemy[i] = nullptr;
-				break;
+				cone = new Cone;
+				cone->Initialize();
 			}
+		}
 
-			//当たり判定の確認
-			if (IsHitCheak(player, enemy[i]) && enemy[i]->GetDeathFlg() == false)
+		//敵の更新と当たり判定チェック
+		for (int i = 0; i < 10; i++)
+		{
+			if (enemy[i] != nullptr)
 			{
-				//プレイヤーがブースト中なら、敵に当たった時加点
-				if (player->GetBoostFlg() == true)
+				enemy[i]->Update(player->GetSpeed());
+
+				//画面外に行ったら、敵を削除してスコア加算
+				if (enemy[i]->GetLocation().y >= 640.0f)
 				{
 					enemy_count[enemy[i]->GetType()]++;
-					enemy[i]->SetDeathFlg(true);
-				}
-				else
-				{
-					PlaySoundMem(hit_SE, DX_PLAYTYPE_BACK);
-					player->SetActive(false);
-					player->DecreaseHp(-50.0f);
 					enemy[i]->Finalize();
 					delete enemy[i];
 					enemy[i] = nullptr;
+					break;
+				}
+
+				//当たり判定の確認
+				if (IsHitCheak(player, enemy[i]) && enemy[i]->GetDeathFlg() == false)
+				{
+					//プレイヤーがブースト中なら、敵に当たった時加点
+					if (player->GetBoostFlg() == true)
+					{
+						enemy_count[enemy[i]->GetType()]++;
+						enemy[i]->SetDeathFlg(true);
+					}
+					else
+					{
+						PlaySoundMem(hit_SE, DX_PLAYTYPE_BACK);
+						player->SetActive(false);
+						player->DecreaseHp(-50.0f);
+						enemy[i]->Finalize();
+						delete enemy[i];
+						enemy[i] = nullptr;
+					}
 				}
 			}
 		}
-	}
 
-	//アイテムの更新と当たり判定チェック
-	for (int i = 0; i < 10; i++)
-	{
-		if (item[i] != nullptr)
+		//アイテムの更新と当たり判定チェック
+		for (int i = 0; i < 10; i++)
 		{
-			item[i]->Update(player->GetSpeed());
-
-			//画面外に行ったら、敵を削除してスコア加算
-			if (item[i]->GetLocation().y >= 640.0f)
+			if (item[i] != nullptr)
 			{
-				item[i]->Finalize();
-				delete item[i];
-				item[i] = nullptr;
-				continue;
-			}
+				item[i]->Update(player->GetSpeed());
 
-			//当たり判定の確認
-			if (IsHitCheak(player, item[i]))
-			{
-				if (item[i]->GetType() == 2) {
-					if (player->GetHp() <= 500) {
-						player->SetItemPower(item[i]);
-						player->DecreaseHp(50.0f);
-						item[i]->Finalize();
-						delete item[i];
-						item[i] = nullptr;
-						continue;
-					}
-					else {
-						player->SetItemPower(item[i]);
-						item[i]->Finalize();
-						delete item[i];
-						item[i] = nullptr;
-						continue;
-					}
-				}
-				if (item[i]->GetType() == 3) {
-					if (player->GetFuel() <= 20000) {
-						player->SetItemPower(item[i]);
-						player->IncreaseFuel(2000.0f);
-						item[i]->Finalize();
-						delete item[i];
-						item[i] = nullptr;
-						continue;
-					}
-					else {
-						player->SetItemPower(item[i]);
-						item[i]->Finalize();
-						delete item[i];
-						item[i] = nullptr;
-						continue;
-					}
-				}
-				else {
-					player->SetItemPower(item[i]);
+				//画面外に行ったら、アイテムを削除
+				if (item[i]->GetLocation().y >= 640.0f)
+				{
 					item[i]->Finalize();
 					delete item[i];
 					item[i] = nullptr;
 					continue;
 				}
+
+				//当たり判定の確認
+				if (IsHitCheak(player, item[i]))
+				{
+					if (item[i]->GetType() == 2) {
+						if (player->GetHp() <= 500) {
+							player->SetItemPower(item[i]);
+							player->DecreaseHp(50.0f);
+							item[i]->Finalize();
+							delete item[i];
+							item[i] = nullptr;
+							continue;
+						}
+						else {
+							player->SetItemPower(item[i]);
+							item[i]->Finalize();
+							delete item[i];
+							item[i] = nullptr;
+							continue;
+						}
+					}
+					if (item[i]->GetType() == 3) {
+						if (player->GetFuel() <= 20000) {
+							player->SetItemPower(item[i]);
+							player->IncreaseFuel(2000.0f);
+							item[i]->Finalize();
+							delete item[i];
+							item[i] = nullptr;
+							continue;
+						}
+						else {
+							player->SetItemPower(item[i]);
+							item[i]->Finalize();
+							delete item[i];
+							item[i] = nullptr;
+							continue;
+						}
+					}
+					else {
+						player->SetItemPower(item[i]);
+						item[i]->Finalize();
+						delete item[i];
+						item[i] = nullptr;
+						continue;
+					}
+				}
 			}
 		}
-	}
 
-	
 
-	//オイルの更新と当たり判定チェック
-	for (int i = 0; i < 10; i++)
-	{
+
+		//オイルの更新
 		if (oil != nullptr)
 		{
 			oil->Update(player->GetSpeed());
@@ -239,9 +236,12 @@ eSceneType GameMainScene::Update()
 				oil->Finalize();
 				delete oil;
 				oil = nullptr;
-				break;
 			}
-			//当たり判定の確認
+		}
+
+		//当たり判定の確認
+		if (oil != nullptr)
+		{
 			if (IsHitCheak(player, oil))
 			{
 				PlaySoundMem(oilsounds, DX_PLAYTYPE_BACK);
@@ -251,13 +251,10 @@ eSceneType GameMainScene::Update()
 				oil = nullptr;
 			}
 		}
-	}
 
-	
 
-	//コーンの更新と当たり判定チェック
-	for (int i = 0; i < 10; i++)
-	{
+
+		//コーンの更新
 		if (cone != nullptr)
 		{
 			cone->Update(player->GetSpeed());
@@ -267,10 +264,11 @@ eSceneType GameMainScene::Update()
 			{
 				delete cone;
 				cone = nullptr;
-				break;
 			}
-
-			//当たり判定の確認
+		}
+		//当たり判定の確認
+		if (cone != nullptr)
+		{
 			if (IsHitCheak(player, cone))
 			{
 				player->SetActive(false);
@@ -280,120 +278,113 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
-	//プレイヤーの燃料か体力が0未満なら、リザルトに還移する
-	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
+	else
 	{
-		//一回だけ動画再生
-		if (movie_play_once == false)
-		{
-			PlayMovie("RPReplay_Final1707791741.avi", 1, DX_MOVIEPLAYTYPE_BCANCEL);
-			movie_play_once = true;
-		}
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 		{
 			StopSoundMem(BGM);
 			return eSceneType::E_RESULT;
 		}
 	}
-		return GetNowScene();
+	return GetNowScene();
 
 }
 
 //描画処理
 void GameMainScene::Draw() const
 {
-	//背景画像の描画
-	DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
-	DrawGraph(0, mileage % 480, back_ground, TRUE);
-
-	//敵の描画
-	for (int i = 0; i < 10; i++)
+	//ゲームメイン描画
+	if (player->GetFuel() > 0.0f && player->GetHp() > 0.0f)
 	{
-		if (enemy[i] != nullptr)
-		{
-			enemy[i]->Draw();
-		}
-	}
+		//背景画像の描画
+		DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
+		DrawGraph(0, mileage % 480, back_ground, TRUE);
 
-	//オイルの描画
-	/*for (int i = 0; i < 10; i++)
-	{
-		if (oil[i] != nullptr)
+		//敵の描画
+		for (int i = 0; i < 10; i++)
 		{
-			oil[i]->Draw();
-		}
-	}*/
-
-	//アイテムの描画
-	for (int i = 0; i < 10; i++)
-	{
-		if (item[i] != nullptr)
-		{
-			item[i]->Draw();
+			if (enemy[i] != nullptr)
+			{
+				enemy[i]->Draw();
+			}
 		}
 
+		//アイテムの描画
+		for (int i = 0; i < 10; i++)
+		{
+			if (item[i] != nullptr)
+			{
+				item[i]->Draw();
+			}
+
+		}
+
+		if (oil != nullptr)
+		{
+			oil->Draw();
+		}
+
+		if (cone != nullptr) {
+			cone->Draw();
+		}
+
+		//プレイヤーの描画
+		player->Draw();
+
+		//UIの描画
+		DrawBox(500, 0, 640, 480, GetColor(153, 0, 0), TRUE);
+		SetFontSize(16);
+		DrawFormatString(500, 10, GetColor(0, 0, 0), "ハイスコア");
+		Resource::DrawNumber(Vector2D(520, 40), high_score, 8, 1, 2);
+		DrawFormatString(500, 80, GetColor(0, 0, 0), "避けた数&壊した数");
+		for (int i = 0; i < 3; i++)
+		{
+			DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE, FALSE);
+			/*DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d", enemy_count[i]);*/
+			Resource::DrawNumber(Vector2D(507 + (i * 50), 145), enemy_count[i], 3, 0.8, 2);
+		}
+		DrawFormatString(510, 190, GetColor(0, 0, 0), "走行距離");
+		Resource::DrawNumber(Vector2D(520, 220), mileage / 10, 6, 1, 2);
+		DrawFormatString(510, 250, GetColor(0, 0, 0), "スピード");
+		Resource::DrawNumber(Vector2D(540, 280), player->GetSpeed(), 2, 1, 2);
+		DrawFormatString(510, 300, GetColor(0, 0, 0), "残りバリア数");
+		//バリア枚数の描画
+		for (int i = 0; i < player->GetBarrierCount(); i++)
+		{
+			DrawRotaGraph(520 + i * 25, 340, 0.2f, 0, barrier_image, TRUE, FALSE);
+		}
+
+		//燃料ゲージの描画
+		float fx = 510.0f;
+		float fy = 390.0f;
+		DrawFormatString(fx, fy, GetColor(0, 0, 0), "FUEL METER");
+		DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
+		DrawBoxAA(fx, fy + 20.0f, fx + 100.f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
+
+		//体力ゲージの描画
+		float hx = 510.0f;
+		float hy = 430.0f;
+		DrawFormatString(hx, hy, GetColor(0, 0, 0), "PLAYER HP");
+		DrawBoxAA(hx, hy + 20.0f, hx + (player->GetHp() * 100 / 500), hy + 40.0f, GetColor(255, 0, 0), TRUE);
+		DrawBoxAA(hx, hy + 20.0f, hx + 100.f, hy + 40.0f, GetColor(0, 0, 0), FALSE);
+
+		//画面阻害アイテムの有効時間に応じて阻害画像を描画
+		if (player->GetObstructTime() < 255)
+		{
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, player->GetObstructTime());
+			DrawGraphF(0, 0, obstruct_image, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+		}
+		else
+		{
+			DrawGraphF(0, 0, obstruct_image, TRUE);
+		}
 	}
-
-	if (oil != nullptr)
-	{
-		oil->Draw();
-	}
-
-	if (cone != nullptr) {
-		cone->Draw();
-	}
-
-
-	//プレイヤーの描画
-	player->Draw();
-
-	//UIの描画
-	DrawBox(500, 0, 640, 480, GetColor(153, 0, 0), TRUE);
-	SetFontSize(16);
-	DrawFormatString(510, 20, GetColor(0, 0, 0), "ハイスコア");
-	DrawFormatString(510, 40, GetColor(255, 255, 255), "%08d", high_score);
-	DrawFormatString(500, 80, GetColor(0, 0, 0), "避けた数&壊した数");
-	for (int i = 0; i < 3; i++)
-	{
-		DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE, FALSE);
-		DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d", enemy_count[i]);
-	}
-	DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
-	//DrawFormatString(555, 220, GetColor(255,255,255), "%08d",mileage/10);
-	Resource::DrawNumber(Vector2D(555, 220), mileage / 10, 6,1);
-	DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
-	DrawFormatString(555, 260, GetColor(255,255,255), "%08.1f",player->GetSpeed());
-	DrawFormatString(510, 300, GetColor(0, 0, 0), "残りバリア数");
-	//バリア枚数の描画
-	for (int i = 0; i < player->GetBarrierCount(); i++)
-	{
-		DrawRotaGraph(520 + i * 25, 340, 0.2f, 0, barrier_image, TRUE,FALSE);
-	}
-
-	//燃料ゲージの描画
-	float fx = 510.0f;
-	float fy = 390.0f;
-	DrawFormatString(fx, fy, GetColor(0, 0, 0), "FUEL METER");
-	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
-	DrawBoxAA(fx, fy = 20.0f, fx + 100.f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
-
-	//体力ゲージの描画
-	float hx = 510.0f;
-	float hy = 430.0f;
-	DrawFormatString(hx, hy, GetColor(0, 0, 0), "PLAYER HP");
-	DrawBoxAA(hx, hy + 20.0f, hx + (player->GetHp() * 100 / 500), hy + 40.0f, GetColor(255, 0, 0), TRUE);
-	DrawBoxAA(hx, hy = 20.0f, hx + 100.f, hy + 40.0f, GetColor(0, 0, 0), FALSE);
-
-	//画面阻害アイテムの有効時間に応じて阻害画像を描画
-	if (player->GetObstructTime() < 255)
-	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, player->GetObstructTime());
-		DrawGraphF(0, 0, obstruct_image, TRUE);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
-	}
+	//ゲームオーバー動画描画
 	else
 	{
-		DrawGraphF(0, 0, obstruct_image, TRUE);
+		PlayMovieToGraph(MovieGraphHandle);
+		DrawRotaGraph(320, 240, 0.6,0,MovieGraphHandle, FALSE);
 	}
 }
 
@@ -401,10 +392,10 @@ void GameMainScene::Draw() const
 void GameMainScene::Finalize()
 {
 	//スコアを計算する
-	int score = (mileage / 10 * 10);
+	int score = (mileage / 10);
 	for (int i = 0; i < 3; i++)
 	{
-		score += (i + 1) * 50 * enemy_count[i];
+		score += (i + 1) * 300 * enemy_count[i];
 	}
 	//リザルトデータの書き込み
 	FILE* fp = nullptr;
@@ -420,7 +411,8 @@ void GameMainScene::Finalize()
 
 	//スコアを保存
 	fprintf(fp, "%d,\n",score);
-
+	//走行距離保存
+	fprintf(fp, "%d,\n",mileage);
 	//避けた数と得点を保存
 	for (int i = 0; i < 3; i++)
 	{

@@ -1,17 +1,10 @@
 #include "Cone.h"
 #include "DxLib.h"
 #include "Enemy.h"
+#include"../Utility/Resource.h"
 
-Cone::Cone() : image(NULL)
+Cone::Cone() : wait(0), draw_timer(0),image(NULL),danger_image(NULL), danger_se(NULL)
 {
-	//画像の読み込み
-	image = LoadGraph("Resource/images/cone.png");
-
-	//エラーチェック
-	if (image == -1)
-	{
-		throw("Resource/images/cone.がpngありません\n");
-	}
 }
 
 Cone::~Cone() 
@@ -21,6 +14,13 @@ Cone::~Cone()
 
 void Cone::Initialize()
 {
+	//リソースの読み込み
+	image = Resource::LoadAndCheck("Resource/images/cone.png");
+	danger_image = Resource::LoadAndCheck("Resource/images/danger.png");
+	danger_se = Resource::LoadAndCheck("Resource/sound/警告音1.mp3");
+	PlaySoundMem(danger_se, DX_PLAYTYPE_BACK);
+
+	wait = 60;
 	//出現させるX座標パターンを取得
 	float random_x = (float)(GetRand(4) * 105 + 40);
 	//生成位置の設定
@@ -28,18 +28,36 @@ void Cone::Initialize()
 	//当たり判定の設定
 	box_size = Vector2D(31.0f, 60.0f);
 	//速さの設定
-	speed = 3.0f;
+	speed = 5.0f;
 }
 
 void Cone::Update(float speed)
 {
+	//点滅用
+	if (draw_timer++ > 14)
+	{
+		draw_timer = 0;
+	}
 	//位置情報に移動量を加算する
-	location += Vector2D(0.0f, this->speed + speed - 6);
+	if (--wait < 0)
+	{
+		location += Vector2D(0.0f, this->speed + speed);
+	}
 }
 
 void Cone::Draw()const
 {
-	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	if (wait > 0)
+	{
+		if (draw_timer > 7)
+		{
+			DrawRotaGraphF(location.x, 32, 1.0, 0.0, danger_image, TRUE);
+		}
+	}
+	else
+	{
+		DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	}
 }
 
 //位置情報を取得

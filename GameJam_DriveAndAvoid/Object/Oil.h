@@ -5,8 +5,11 @@
 class Oil
 {
 private:
-	int oil_image;//オイル画像
+	int wait;	//警告表示時間
+	int draw_timer;	//警告表示点滅用
 	int image;				//画像
+	int danger_image;		//警告画像
+	int danger_se;			//警告SE
 	float speed;			//速さ
 	Vector2D location;		//位置情報
 	Vector2D box_size;		//当たり判定の大きさ
