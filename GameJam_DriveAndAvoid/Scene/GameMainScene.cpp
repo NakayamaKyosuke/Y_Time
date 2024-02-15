@@ -29,6 +29,12 @@ void GameMainScene::Initialize()
 	ReadHighScore();
 
 	//画像の読み込み	
+	back_ground = LoadGraph("Resource/images/back.bmp");
+	barrier_image= LoadGraph("Resource/images/barrier.png");
+	obstruct_image = LoadGraph("Resource/images/flash.jpg");
+	oilsounds = LoadSoundMem("Resource/sound/se_blood03.mp3");
+	hit_SE = LoadSoundMem("Resource/sound/gatigire.mp3");
+	BGM = LoadSoundMem("Resource/sound/GameMainBGM.mp3");
 	back_ground = Resource::LoadAndCheck("Resource/images/GameMain_Back.jpg");
 	barrier_image= Resource::LoadAndCheck("Resource/images/barrier.png");
 	obstruct_image = Resource::LoadAndCheck("Resource/images/flash.jpg");
@@ -54,11 +60,14 @@ void GameMainScene::Initialize()
 	{
 		item[i] = nullptr;
 	}
+
+	PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
 }
 
 //更新処理
 eSceneType GameMainScene::Update()
 {
+
 	//プレイヤーの更新
 	player->Update();
 
@@ -284,6 +293,9 @@ eSceneType GameMainScene::Update()
 		{
 			return eSceneType::E_RESULT;
 		}
+	}
+		StopSoundMem(BGM);
+		return eSceneType::E_RESULT;
 	}
 
 		return GetNowScene();

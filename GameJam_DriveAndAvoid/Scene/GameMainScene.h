@@ -26,6 +26,8 @@ private:
 	int oilsounds;
 	int hit_SE;
 
+	int BGM;
+
 	Oil* oil;//ƒIƒCƒ‹
 	bool movie_play_once;	//“®‰æ‚ğˆê‰ñ‚¾‚¯Ä¶
 public:
