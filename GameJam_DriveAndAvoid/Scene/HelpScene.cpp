@@ -16,20 +16,20 @@ HelpScene::~HelpScene()
 void HelpScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/title.bmp");
+	background_image = LoadGraph("Resource/images/help.png");
 
 	//エラーチェック
 	if (background_image == -1)
 	{
-		throw("Resource/images/Title.bmpがありません\n");
+		throw("Resource/images/help.bmpがありません\n");
 	}
 }
 
 //更新処理
 eSceneType HelpScene::Update()
 {
-	//Bボタンが押されたら、タイトルに戻る
-	if (InputControl::GetButtonUp(XINPUT_BUTTON_B))
+	//Aボタンが押されたら、タイトルに戻る
+	if (InputControl::GetButtonUp(XINPUT_BUTTON_A))
 	{
 		return eSceneType::E_TITLE;
 	}
@@ -45,17 +45,7 @@ void HelpScene::Draw() const
 
 	//ゲーム説明
 	SetFontSize(16);
-	DrawString(20, 120,"ヘルプ画面", 0xffffff, 0);
-
-	DrawString(20, 160, "これは障害物を避けながら", 0xffffff, 0);
-	DrawString(20, 180, "走り続けるゲームです", 0xffffff, 0);
-	DrawString(20, 200, "燃料が尽きるか障害物に", 0xffffff, 0);
-	DrawString(20, 220, "数回当たるとゲームオーバーです。", 0xffffff, 0);
-
-	DrawString(20, 260, "十字キー:移動 Xボタン:ブースト(移動速度上昇)", 0xffffff, 0);
-	DrawString(20, 280, "RB:加速 LB:減速  Bボタン:バリア", 0xffffff, 0);
-
-	DrawString(150, 450, "---- Bボタンを押してタイトルへ戻る ----",0xffffff, 0);
+	DrawString(130, 460, "Aボタンを押してタイトルへ戻る",0xff0000, 0);
 }
 
 //終了時処理
