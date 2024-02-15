@@ -89,8 +89,8 @@ eSceneType GameMainScene::Update()
 				}
 			}
 		}
-		//敵生成処理
-		if (mileage / 20 % 250 == 0)
+		//アイテム生成処理
+		if (mileage / 20 % 125== 0)
 		{
 			//アイテム生成
 			for (int i = 0; i < 10; i++)
@@ -167,7 +167,7 @@ eSceneType GameMainScene::Update()
 			{
 				item[i]->Update(player->GetSpeed());
 
-				//画面外に行ったら、敵を削除してスコア加算
+				//画面外に行ったら、アイテムを削除
 				if (item[i]->GetLocation().y >= 640.0f)
 				{
 					item[i]->Finalize();
@@ -334,18 +334,19 @@ void GameMainScene::Draw() const
 		//UIの描画
 		DrawBox(500, 0, 640, 480, GetColor(153, 0, 0), TRUE);
 		SetFontSize(16);
-		DrawFormatString(510, 20, GetColor(0, 0, 0), "ハイスコア");
-		DrawFormatString(510, 40, GetColor(255, 255, 255), "%08d", high_score);
+		DrawFormatString(500, 10, GetColor(0, 0, 0), "ハイスコア");
+		Resource::DrawNumber(Vector2D(520, 40), high_score, 8, 1, 2);
 		DrawFormatString(500, 80, GetColor(0, 0, 0), "避けた数&壊した数");
 		for (int i = 0; i < 3; i++)
 		{
 			DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE, FALSE);
-			DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d", enemy_count[i]);
+			/*DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d", enemy_count[i]);*/
+			Resource::DrawNumber(Vector2D(507 + (i * 50), 145), enemy_count[i], 3, 0.8, 2);
 		}
 		DrawFormatString(510, 190, GetColor(0, 0, 0), "走行距離");
-		Resource::DrawNumber(Vector2D(520, 210), mileage / 10, 6, 2);
+		Resource::DrawNumber(Vector2D(520, 220), mileage / 10, 6, 1, 2);
 		DrawFormatString(510, 250, GetColor(0, 0, 0), "スピード");
-		Resource::DrawNumber(Vector2D(540, 270), player->GetSpeed(), 2, 2);
+		Resource::DrawNumber(Vector2D(540, 280), player->GetSpeed(), 2, 1, 2);
 		DrawFormatString(510, 300, GetColor(0, 0, 0), "残りバリア数");
 		//バリア枚数の描画
 		for (int i = 0; i < player->GetBarrierCount(); i++)
@@ -358,14 +359,14 @@ void GameMainScene::Draw() const
 		float fy = 390.0f;
 		DrawFormatString(fx, fy, GetColor(0, 0, 0), "FUEL METER");
 		DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy + 40.0f, GetColor(0, 102, 204), TRUE);
-		DrawBoxAA(fx, fy = 20.0f, fx + 100.f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
+		DrawBoxAA(fx, fy + 20.0f, fx + 100.f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
 
 		//体力ゲージの描画
 		float hx = 510.0f;
 		float hy = 430.0f;
 		DrawFormatString(hx, hy, GetColor(0, 0, 0), "PLAYER HP");
 		DrawBoxAA(hx, hy + 20.0f, hx + (player->GetHp() * 100 / 500), hy + 40.0f, GetColor(255, 0, 0), TRUE);
-		DrawBoxAA(hx, hy = 20.0f, hx + 100.f, hy + 40.0f, GetColor(0, 0, 0), FALSE);
+		DrawBoxAA(hx, hy + 20.0f, hx + 100.f, hy + 40.0f, GetColor(0, 0, 0), FALSE);
 
 		//画面阻害アイテムの有効時間に応じて阻害画像を描画
 		if (player->GetObstructTime() < 255)
