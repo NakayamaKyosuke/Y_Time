@@ -5,7 +5,7 @@ int Resource::number_imaga[3] = {};
 
 void Resource::Initialize()
 {
-	number_imaga[0] = LoadAndCheck("Resource/images/D&D_Number.png");
+	LoadAndCheck("Resource/images/D&D_Number.png",10,10,1,20,30, number_imaga[0]);
 	number_imaga[1] = LoadAndCheck("Resource/images/D&D_Number_Red.png");
 	number_imaga[2] = LoadAndCheck("Resource/images/D&D_Number_White.png");
 }
@@ -36,4 +36,9 @@ void Resource::LoadAndCheck(const char* _data, int AllNum, int XNum, int YNum, i
 	{
 		throw(_data);
 	}
+}
+
+void Resource::DrawNumber(int draw_num, int color)
+{
+
 }

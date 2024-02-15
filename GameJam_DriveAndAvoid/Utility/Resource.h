@@ -4,7 +4,7 @@
 class Resource
 {
 private:
-	static int number_imaga[3];	//数字の画像
+	static int number_imaga[3][10];	//数字の画像
 public:
 	static void Initialize();
 	static int LoadAndCheck(const char* _data);	 //画像、音声の読込＆エラーチェック
