@@ -41,7 +41,7 @@ void GameMainScene::Initialize()
 	oilsounds = Resource::LoadAndCheck("Resource/sound/se_blood03.mp3");
 	hit_SE = Resource::LoadAndCheck("Resource/sound/gatigire.mp3");
 	Resource::LoadAndCheck("Resource/images/cars2.png", 3, 3, 1, 63, 120, enemy_image);
-	MovieGraphHandle = Resource::LoadAndCheck("RPReplay_Final1707791741.avi");
+	MovieGraphHandle = Resource::LoadAndCheck("Resource/images/RPReplay_Final1707791741.avi");
 	//オブジェクトの生成
 	player = new Player;
 	enemy = new Enemy * [10];
